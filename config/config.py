@@ -13,8 +13,8 @@ HEADERS = {
 PROJECT_ID = "45"
 
 # 默认登录 credentials
-DEFAULT_LOGIN_EMAIL = "liying@ama-auto.com"
-DEFAULT_LOGIN_PASSWORD = "3149390154Li"
+DEFAULT_LOGIN_EMAIL = "liguorun@ama-auto.com"
+DEFAULT_LOGIN_PASSWORD = "lgr666888"
 
 # 尝试导入本地配置（本地配置不会提交到 git）
 try:

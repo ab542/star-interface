@@ -6,11 +6,15 @@ from loguru import logger
 from config.config import BASE_URL2, TIMEOUT, PROJECT_ID
 from util.api_client import request_and_assert
 import string
-# 一次性加载 testdata/cartea 目录下所有 yaml 文件
+# 一次性加载 testdata/star_digi+ 目录下所有 yaml 文件
+# 并根据文件所在目录自动添加 pytest marker
 def load_all_test_data(dir_path="testdata/star_digi+"):
     files = sorted(Path(dir_path).rglob("*.yaml"))
-    cases = []
+    parametrized_cases = []
     for f in files:
+        # 从文件路径推断模块名称（例如 login/data_login.yaml => module=login）
+        module = f.parent.name
+        marker = getattr(pytest.mark, module, pytest.mark.generic)
         raw = f.read_text(encoding="utf-8")          # 一次性读完
         tpl = string.Template(raw)
         content = tpl.safe_substitute(projectId=PROJECT_ID)
@@ -18,29 +22,15 @@ def load_all_test_data(dir_path="testdata/star_digi+"):
             if not doc:
                 continue
             if isinstance(doc, list):
-                cases.extend(doc)
+                for case in doc:
+                    parametrized_cases.append(pytest.param(case, marks=marker, id=case.get("name")))
             else:
-                cases.append(doc)
-    return cases
+                parametrized_cases.append(pytest.param(doc, marks=marker, id=doc.get("name")))
+    return parametrized_cases
 
-ALL_CASES = load_all_test_data()
+PARAM_CASES = load_all_test_data()
 
-# 根据目录自动添加 pytest markers
-def add_markers():
-    import itertools
-    markers = {}
-    for case in ALL_CASES:
-        # 从 url 路径推断模块
-        parts = case['url'].strip('/').split('/')
-        if len(parts) >= 2:
-            module = parts[1]
-            if module not in markers:
-                markers[module] = getattr(pytest.mark, module, pytest.mark.generic)
-    return markers
-
-markers = add_markers()
-
-@pytest.mark.parametrize("test_case", ALL_CASES, ids=[c.get("name") for c in ALL_CASES])
+@pytest.mark.parametrize("test_case", PARAM_CASES)
 def test_star_api(test_case, global_token):          # ① 注入 fixture
     # headers = HEADERS.copy()                         # ② 复制默认头
     headers = test_case.get("headers", {}).copy()    # ② 复制用例头
