@@ -23,6 +23,11 @@ try:
 except ImportError:
     pass
 
+# 如果 local_config.py 中定义了 LOGIN_EMAIL，使用它覆盖默认值
+if 'LOGIN_EMAIL' in globals():
+    DEFAULT_LOGIN_EMAIL = LOGIN_EMAIL
+if 'LOGIN_PASSWORD' in globals():
+    DEFAULT_LOGIN_PASSWORD = LOGIN_PASSWORD
 # 如果 local_config.py 中定义了 PROJECT_ID，使用它，否则使用默认值
 if 'PROJECT_ID' not in globals():
     PROJECT_ID = DEFAULT_PROJECT_ID
