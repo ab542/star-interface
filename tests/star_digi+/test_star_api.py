@@ -32,7 +32,7 @@ ALL_CASES = load_all_test_data()
 def test_star_api(test_case, global_token):          # ① 注入 fixture
     # headers = HEADERS.copy()                         # ② 复制默认头
     headers = test_case.get("headers", {}).copy()    # ② 复制用例头
-    headers["Cookie"] = f"token={global_token}"      # ③ 加 Cookie
+    headers["star-token"] = f"Bearer {global_token}"      # ③ 加 Bearer token header
     request_and_assert(
         name=test_case["name"],
         method=test_case["method"],

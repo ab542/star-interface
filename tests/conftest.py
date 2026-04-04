@@ -22,10 +22,11 @@ logger.add(
 )
 
 # 2. 去掉 URL 末尾空格
+from config.config import BASE_URL2
 LOGIN_CASE = {
     "name": "login_once",
     "method": "POST",
-    "url": "https://star.digiplus-intl.com/api/media/advertiser/login",
+    "url": f"{BASE_URL2}/api/auth/login",
     "headers": {"Content-Type": "application/json"},
     "json": {"email": "liying@ama-auto.com", "password": "3149390154Li"},
 }
