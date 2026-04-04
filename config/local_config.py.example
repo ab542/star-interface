@@ -1,0 +1,10 @@
+# 本地配置文件示例
+# 复制此文件为 local_config.py 并填写你的账号信息
+# local_config.py 已经在 .gitignore 中，不会提交到 git
+
+# 登录账号密码
+LOGIN_EMAIL = "your-email@example.com"
+LOGIN_PASSWORD = "your-password"
+
+# 项目 ID
+PROJECT_ID = "45"

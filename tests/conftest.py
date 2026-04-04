@@ -1,6 +1,7 @@
 import os
 import pytest                      # 1. 记得导入
 from loguru import logger
+from config.config import BASE_URL2, DEFAULT_LOGIN_EMAIL, DEFAULT_LOGIN_PASSWORD
 
 LOG_DIR = "logs"
 os.makedirs(LOG_DIR, exist_ok=True)
@@ -21,14 +22,13 @@ logger.add(
     filter=lambda r: r["extra"].get("sink") == "failure"
 )
 
-# 2. 去掉 URL 末尾空格
-from config.config import BASE_URL2
+# 登录配置从配置文件读取（可通过 local_config.py 覆盖）
 LOGIN_CASE = {
     "name": "login_once",
     "method": "POST",
     "url": f"{BASE_URL2}/api/auth/login",
     "headers": {"Content-Type": "application/json"},
-    "json": {"email": "liying@ama-auto.com", "password": "3149390154Li"},
+    "json": {"email": DEFAULT_LOGIN_EMAIL, "password": DEFAULT_LOGIN_PASSWORD}
 }
 
 @pytest.fixture(scope="session", autouse=True)

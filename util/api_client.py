@@ -6,6 +6,7 @@ from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 from loguru import logger
 import pytest
+from config.config import DEFAULT_MAX_RETRIES
 
 # 关键字集合，可自行扩展
 DB_ERROR_KEYWORDS = {"数据库", "DB Error", "SQL", "ORA-", "MySQL", "PostgreSQL"}
@@ -36,7 +37,8 @@ def request_and_assert(
     json: dict = None,
     expect_json: bool = True,
     expected_code: int = None,
-    max_retries: int = 3,
+    expected_response: dict = None,  # 期望响应 JSON 字段断言
+    max_retries: int = None,  # None 表示使用默认配置
     verify: bool = False,  # 是否校验证书
     max_response_lines: Optional[int] = 10,  # 超过该行数将截断显示（None 表示不截断）
     fail_on_msg: bool = True,  # 当响应 JSON 中存在非空 'msg' 字段时视为异常并失败
@@ -46,6 +48,9 @@ def request_and_assert(
     成功 -> logs/success.log
     失败 -> logs/failure.log
     """
+    # 使用默认重试次数
+    if max_retries is None:
+        max_retries = DEFAULT_MAX_RETRIES
     sess = requests.Session()
     retry = Retry(
         total=max_retries,
@@ -59,7 +64,7 @@ def request_and_assert(
     # 2. 统一错误详情模板
     def _detail(resp, elapsed=None, error=None):
         status = getattr(resp, 'status_code', 'N/A')
-        text = getattr(resp, 'text', 'N/A')
+        text = getattr(resp, 'text', None)
         is_json = False
         try:
             json_obj = resp.json() if resp is not None else None
@@ -146,6 +151,22 @@ def request_and_assert(
         except Exception:
             # 无法解析为 JSON 则跳过此检查
             pass
+
+    # 9. 期望响应字段验证
+    if expected_response is not None:
+        try:
+            body = resp.json()
+            for key, expected_value in expected_response.items():
+                if key not in body:
+                    logger.opt(depth=1).bind(sink="failure").error(f"❌\n  " + _detail(resp, elapsed, f"Response missing key: '{key}'") + "\n" + "-"*80)
+                    pytest.fail(f"Response missing expected key: {key}")
+                actual_value = body.get(key)
+                if actual_value != expected_value:
+                    logger.opt(depth=1).bind(sink="failure").error(f"❌\n  " + _detail(resp, elapsed, f"Value mismatch for '{key}': expected {repr(expected_value)}, got {repr(actual_value)}") + "\n" + "-"*80)
+                    pytest.fail(f"Value mismatch for key {key}: expected {repr(expected_value)}, got {repr(actual_value)}")
+        except Exception as e:
+            logger.opt(depth=1).bind(sink="failure").error(f"❌\n  " + _detail(resp, elapsed, f"Failed to validate expected_response: {e}") + "\n" + "-"*80)
+            pytest.fail(f"Failed to validate expected_response: {e}")
 
     # 成功
     logger.opt(depth=1).bind(sink="success").info(f"✅\n  " + _detail(resp, elapsed) + "\n" + "-"*80)

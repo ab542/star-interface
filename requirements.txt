@@ -4,6 +4,8 @@ pyyaml
 loguru
 allure-pytest
 pytest-html
+pytest-rerunfailures
+pytest-xdist
 pyautogui
 pyperclip
 schedule

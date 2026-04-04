@@ -30,3 +30,9 @@ Thumbs.db
 *.zip
 *.7z
 *.rar
+
+# Local configuration (contains sensitive info)
+config/local_config.py
+
+# pytest cache
+.pytest_cache/

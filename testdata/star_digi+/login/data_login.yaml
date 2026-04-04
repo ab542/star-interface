@@ -1,11 +1,11 @@
 - name: "Star dashboard advertiser login - Valid Credentials"
   method: POST
-  url: /api/media/advertiser/login
+  url: /api/auth/login
   headers:
     Content-Type: application/json
   json:          # ← 这里改成 json
-    email: liying@ama-auto.com
-    password: "3149390154Li"
+    email: liguorun@ama-auto.com
+    password: "lgr666888"
   expected_status: 200
   expected_response:
     code: 0
