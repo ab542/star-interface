@@ -1,0 +1,94 @@
+# ==================== 正常场景 ====================
+- name: "Overview-发布概览-正常查询"
+  method: POST
+  url: /api/overview/workbench/publish
+  headers:
+    Content-Type: application/json
+    e-project-id: "${projectId}"
+  json:
+    projectId: ${projectId}
+    month: 11
+    year: 2025
+    mediaTagIds: [2905,2907,2925,3050,3122,3123,3125,3126,3127,3139,3140,3141,3142,3143,3144,3420,3438,3439,3440,3441,3442,3443,3444,3445,3446,3447,3448,3449]
+    isPublic: 0
+    hierarchyItemIds: [307,305,303,301,299,297,295,293,291,289,287,285,283,281,279,277,240,482,484,242,252,256,262,551,633,634,635,636,309,311,526,313,315,317,553,319,321,491,493,495,497,499,501,503,505,507,509,511,513,515,517,521,523]
+  expected_status: 200
+  expected_response:
+    code: 0
+    msg: "success"
+    data: {}
+
+# ==================== 异常场景 ====================
+
+- name: "Overview-发布概览-month 为 0"
+  method: POST
+  url: /api/overview/workbench/publish
+  headers:
+    Content-Type: application/json
+    e-project-id: "${projectId}"
+  json:
+    projectId: ${projectId}
+    month: 0
+    year: 2025
+    mediaTagIds: [2905,2907,2925,3050,3122,3123,3125,3126,3127,3139,3140,3141,3142,3143,3144,3420,3438,3439,3440,3441,3442,3443,3444,3445,3446,3447,3448,3449]
+    isPublic: 0
+    hierarchyItemIds: [307,305,303,301,299,297,295,293,291,289,287,285,283,281,279,277,240,482,484,242,252,256,262,551,633,634,635,636,309,311,526,313,315,317,553,319,321,491,493,495,497,499,501,503,505,507,509,511,513,515,517,521,523]
+  expected_status: 400
+  expected_response:
+    code: 400
+    msg: "月份必须在 1-12 之间"
+
+- name: "Overview-发布概览-month 大于 12"
+  method: POST
+  url: /api/overview/workbench/publish
+  headers:
+    Content-Type: application/json
+    e-project-id: "${projectId}"
+  json:
+    projectId: ${projectId}
+    month: 13
+    year: 2025
+    mediaTagIds: [2905,2907,2925,3050,3122,3123,3125,3126,3127,3139,3140,3141,3142,3143,3144,3420,3438,3439,3440,3441,3442,3443,3444,3445,3446,3447,3448,3449]
+    isPublic: 0
+    hierarchyItemIds: [307,305,303,301,299,297,295,293,291,289,287,285,283,281,279,277,240,482,484,242,252,256,262,551,633,634,635,636,309,311,526,313,315,317,553,319,321,491,493,495,497,499,501,503,505,507,509,511,513,515,517,521,523]
+  expected_status: 400
+  expected_response:
+    code: 400
+    msg: "月份必须在 1-12 之间"
+
+- name: "Overview-发布概览-year 早于 2020"
+  method: POST
+  url: /api/overview/workbench/publish
+  headers:
+    Content-Type: application/json
+    e-project-id: "${projectId}"
+  json:
+    projectId: ${projectId}
+    month: 11
+    year: 2019
+    mediaTagIds: [2905,2907,2925,3050,3122,3123,3125,3126,3127,3139,3140,3141,3142,3143,3144,3420,3438,3439,3440,3441,3442,3443,3444,3445,3446,3447,3448,3449]
+    isPublic: 0
+    hierarchyItemIds: [307,305,303,301,299,297,295,293,291,289,287,285,283,281,279,277,240,482,484,242,252,256,262,551,633,634,635,636,309,311,526,313,315,317,553,319,321,491,493,495,497,499,501,503,505,507,509,511,513,515,517,521,523]
+  expected_status: 400
+  expected_response:
+    code: 400
+    msg: "年份不能早于 2020"
+
+- name: "Overview-发布概览-hierarchyItemIds 为空"
+  method: POST
+  url: /api/overview/workbench/publish
+  headers:
+    Content-Type: application/json
+    e-project-id: "${projectId}"
+  json:
+    projectId: ${projectId}
+    month: 11
+    year: 2025
+    mediaTagIds: [2905,2907,2925,3050,3122,3123,3125,3126,3127,3139,3140,3141,3142,3143,3144,3420,3438,3439,3440,3441,3442,3443,3444,3445,3446,3447,3448,3449]
+    isPublic: 0
+    hierarchyItemIds: []
+  expected_status: 200
+  expected_response:
+    code: 0
+    msg: "success"
+    data: {}

@@ -1,0 +1,116 @@
+# ==================== 正常场景 ====================
+- name: "Funnel-正常查询"
+  method: POST
+  url: /api/dashboard/project/funnel
+  headers:
+    Content-Type: application/json
+    e-project-id: "${projectId}"
+  json:
+    beginDate: "2025-11-06"
+    endDate: "2025-11-13"
+    hierarchyItemIds: []
+    mediaIds: []
+    principalIds: []
+    projectId: ${projectId}
+    tagIds: []
+  expected_status: 200
+  expected_response:
+    code: 0
+    msg: "success"
+    data: {}
+
+# ==================== 异常场景 ====================
+- name: "Funnel-缺失 e-project-id"
+  method: POST
+  url: /api/dashboard/project/funnel
+  headers:
+    Content-Type: application/json
+  json:
+    beginDate: "2025-11-06"
+    endDate: "2025-11-13"
+    hierarchyItemIds: []
+    mediaIds: []
+    principalIds: []
+    projectId: ${projectId}
+    tagIds: []
+  expected_status: 400
+  expected_response:
+    code: 400
+    msg: "缺少必要请求头 e-project-id"
+
+- name: "Funnel-日期区间超过 31 天"
+  method: POST
+  url: /api/dashboard/project/funnel
+  headers:
+    Content-Type: application/json
+    e-project-id: "${projectId}"
+  json:
+    beginDate: "2025-10-01"
+    endDate: "2025-11-13"
+    hierarchyItemIds: []
+    mediaIds: []
+    principalIds: []
+    projectId: ${projectId}
+    tagIds: []
+  expected_status: 400
+  expected_response:
+    code: 400
+    msg: "查询区间不能超过 31 天"
+
+- name: "Funnel-beginDate > endDate"
+  method: POST
+  url: /api/dashboard/project/funnel
+  headers:
+    Content-Type: application/json
+    e-project-id: "${projectId}"
+  json:
+    beginDate: "2025-11-13"
+    endDate: "2025-11-06"
+    hierarchyItemIds: []
+    mediaIds: []
+    principalIds: []
+    projectId: ${projectId}
+    tagIds: []
+  expected_status: 400
+  expected_response:
+    code: 400
+    msg: "开始日期不能晚于结束日期"
+
+- name: "Funnel-projectId 与头不一致"
+  method: POST
+  url: /api/dashboard/project/funnel
+  headers:
+    Content-Type: application/json
+    e-project-id: "${projectId}"
+  json:
+    beginDate: "2025-11-06"
+    endDate: "2025-11-13"
+    hierarchyItemIds: []
+    mediaIds: []
+    principalIds: []
+    projectId: 999999
+    tagIds: []
+  expected_status: 403
+  expected_response:
+    code: 403
+    msg: "项目权限不匹配"
+
+- name: "Funnel-单天查询"
+  method: POST
+  url: /api/dashboard/project/funnel
+  headers:
+    Content-Type: application/json
+    e-project-id: "${projectId}"
+  json:
+    beginDate: "2025-11-06"
+    endDate: "2025-11-06"
+    hierarchyItemIds: []
+    mediaIds: []
+    principalIds: []
+    projectId: ${projectId}
+    tagIds: []
+  expected_status: 200
+  expected_response:
+    code: 0
+    msg: "success"
+    data: {}

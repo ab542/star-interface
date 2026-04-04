@@ -1,0 +1,222 @@
+# ==================== 正常场景 ====================
+- name: "Monitor-Picture-正常查询"
+  method: POST
+  url: /api/post/monitor/picture
+  headers:
+    Content-Type: application/json
+    e-project-id: "${projectId}"
+  json:
+    begDate: "2025-11-01"
+    endDate: "2025-11-13"
+    hierarchyItemIds: [307,305,303,301,299,297,295,293,291,289,287,285,283,281,279,277,240,482,484,242,252,256,262,551,633,634,635,636,309,311,526,313,315,317,553,319,321,491,493,495,497,499,501,503,505,507,509,511,513,515,517,521,523]
+    mediaTagIds: [2905,2907,2925,3050,3122,3123,3125,3126,3127,3139,3140,3141,3142,3143,3144,3420,3438,3439,3440,3441,3442,3443,3444,3445,3446,3447,3448,3449]
+    mediaType: ""
+    orderBy: "view_count"
+    orderByDirection: "desc"
+    page: 1
+    projectId: ${projectId}
+    size: 10
+  expected_status: 200
+  expected_response:
+    code: 0
+    msg: "success"
+    data: {}
+
+# ==================== 异常场景 ====================
+- name: "Monitor-Picture-缺失 e-project-id"
+  method: POST
+  url: /api/post/monitor/picture
+  headers:
+    Content-Type: application/json
+  json:
+    begDate: "2025-11-01"
+    endDate: "2025-11-13"
+    hierarchyItemIds: [307,305,303,301,299,297,295,293,291,289,287,285,283,281,279,277,240,482,484,242,252,256,262,551,633,634,635,636,309,311,526,313,315,317,553,319,321,491,493,495,497,499,501,503,505,507,509,511,513,515,517,521,523]
+    mediaTagIds: [2905,2907,2925,3050,3122,3123,3125,3126,3127,3139,3140,3141,3142,3143,3144,3420,3438,3439,3440,3441,3442,3443,3444,3445,3446,3447,3448,3449]
+    mediaType: ""
+    orderBy: "view_count"
+    orderByDirection: "desc"
+    page: 1
+    projectId: ${projectId}
+    size: 10
+  expected_status: 400
+  expected_response:
+    code: 400
+    msg: "缺少必要请求头 e-project-id"
+
+- name: "Monitor-Picture-projectId 与头不一致"
+  method: POST
+  url: /api/post/monitor/picture
+  headers:
+    Content-Type: application/json
+    e-project-id: "${projectId}"
+  json:
+    begDate: "2025-11-01"
+    endDate: "2025-11-13"
+    hierarchyItemIds: [307,305,303,301,299,297,295,293,291,289,287,285,283,281,279,277,240,482,484,242,252,256,262,551,633,634,635,636,309,311,526,313,315,317,553,319,321,491,493,495,497,499,501,503,505,507,509,511,513,515,517,521,523]
+    mediaTagIds: [2905,2907,2925,3050,3122,3123,3125,3126,3127,3139,3140,3141,3142,3143,3144,3420,3438,3439,3440,3441,3442,3443,3444,3445,3446,3447,3448,3449]
+    mediaType: ""
+    orderBy: "view_count"
+    orderByDirection: "desc"
+    page: 1
+    projectId: 999999
+    size: 10
+  expected_status: 403
+  expected_response:
+    code: 403
+    msg: "项目权限不匹配"
+
+- name: "Monitor-Picture-日期区间超过 31 天"
+  method: POST
+  url: /api/post/monitor/picture
+  headers:
+    Content-Type: application/json
+    e-project-id: "${projectId}"
+  json:
+    begDate: "2025-10-01"
+    endDate: "2025-11-13"
+    hierarchyItemIds: [307,305,303,301,299,297,295,293,291,289,287,285,283,281,279,277,240,482,484,242,252,256,262,551,633,634,635,636,309,311,526,313,315,317,553,319,321,491,493,495,497,499,501,503,505,507,509,511,513,515,517,521,523]
+    mediaTagIds: [2905,2907,2925,3050,3122,3123,3125,3126,3127,3139,3140,3141,3142,3143,3144,3420,3438,3439,3440,3441,3442,3443,3444,3445,3446,3447,3448,3449]
+    mediaType: ""
+    orderBy: "view_count"
+    orderByDirection: "desc"
+    page: 1
+    projectId: ${projectId}
+    size: 10
+  expected_status: 400
+  expected_response:
+    code: 400
+    msg: "查询区间不能超过 31 天"
+
+- name: "Monitor-Picture-begDate > endDate"
+  method: POST
+  url: /api/post/monitor/picture
+  headers:
+    Content-Type: application/json
+    e-project-id: "${projectId}"
+  json:
+    begDate: "2025-11-13"
+    endDate: "2025-11-01"
+    hierarchyItemIds: [307,305,303,301,299,297,295,293,291,289,287,285,283,281,279,277,240,482,484,242,252,256,262,551,633,634,635,636,309,311,526,313,315,317,553,319,321,491,493,495,497,499,501,503,505,507,509,511,513,515,517,521,523]
+    mediaTagIds: [2905,2907,2925,3050,3122,3123,3125,3126,3127,3139,3140,3141,3142,3143,3144,3420,3438,3439,3440,3441,3442,3443,3444,3445,3446,3447,3448,3449]
+    mediaType: ""
+    orderBy: "view_count"
+    orderByDirection: "desc"
+    page: 1
+    projectId: ${projectId}
+    size: 10
+  expected_status: 400
+  expected_response:
+    code: 400
+    msg: "开始日期不能晚于结束日期"
+
+- name: "Monitor-Picture-page 为 0"
+  method: POST
+  url: /api/post/monitor/picture
+  headers:
+    Content-Type: application/json
+    e-project-id: "${projectId}"
+  json:
+    begDate: "2025-11-01"
+    endDate: "2025-11-13"
+    hierarchyItemIds: [307,305,303,301,299,297,295,293,291,289,287,285,283,281,279,277,240,482,484,242,252,256,262,551,633,634,635,636,309,311,526,313,315,317,553,319,321,491,493,495,497,499,501,503,505,507,509,511,513,515,517,521,523]
+    mediaTagIds: [2905,2907,2925,3050,3122,3123,3125,3126,3127,3139,3140,3141,3142,3143,3144,3420,3438,3439,3440,3441,3442,3443,3444,3445,3446,3447,3448,3449]
+    mediaType: ""
+    orderBy: "view_count"
+    orderByDirection: "desc"
+    page: 0
+    projectId: ${projectId}
+    size: 10
+  expected_status: 400
+  expected_response:
+    code: 400
+    msg: "页码必须从 1 开始"
+
+- name: "Monitor-Picture-size 超过最大 200"
+  method: POST
+  url: /api/post/monitor/picture
+  headers:
+    Content-Type: application/json
+    e-project-id: "${projectId}"
+  json:
+    begDate: "2025-11-01"
+    endDate: "2025-11-13"
+    hierarchyItemIds: [307,305,303,301,299,297,295,293,291,289,287,285,283,281,279,277,240,482,484,242,252,256,262,551,633,634,635,636,309,311,526,313,315,317,553,319,321,491,493,495,497,499,501,503,505,507,509,511,513,515,517,521,523]
+    mediaTagIds: [2905,2907,2925,3050,3122,3123,3125,3126,3127,3139,3140,3141,3142,3143,3144,3420,3438,3439,3440,3441,3442,3443,3444,3445,3446,3447,3448,3449]
+    mediaType: ""
+    orderBy: "view_count"
+    orderByDirection: "desc"
+    page: 1
+    projectId: ${projectId}
+    size: 500
+  expected_status: 400
+  expected_response:
+    code: 400
+    msg: "每页条数不能超过 200"
+
+- name: "Monitor-Picture-orderBy 枚举值非法"
+  method: POST
+  url: /api/post/monitor/picture
+  headers:
+    Content-Type: application/json
+    e-project-id: "${projectId}"
+  json:
+    begDate: "2025-11-01"
+    endDate: "2025-11-13"
+    hierarchyItemIds: [307,305,303,301,299,297,295,293,291,289,287,285,283,281,279,277,240,482,484,242,252,256,262,551,633,634,635,636,309,311,526,313,315,317,553,319,321,491,493,495,497,499,501,503,505,507,509,511,513,515,517,521,523]
+    mediaTagIds: [2905,2907,2925,3050,3122,3123,3125,3126,3127,3139,3140,3141,3142,3143,3144,3420,3438,3439,3440,3441,3442,3443,3444,3445,3446,3447,3448,3449]
+    mediaType: ""
+    orderBy: "unknown_field"
+    orderByDirection: "desc"
+    page: 1
+    projectId: ${projectId}
+    size: 10
+  expected_status: 400
+  expected_response:
+    code: 400
+    msg: "orderBy 值非法"
+
+- name: "Monitor-Picture-orderByDirection 枚举值非法"
+  method: POST
+  url: /api/post/monitor/picture
+  headers:
+    Content-Type: application/json
+    e-project-id: "${projectId}"
+  json:
+    begDate: "2025-11-01"
+    endDate: "2025-11-13"
+    hierarchyItemIds: [307,305,303,301,299,297,295,293,291,289,287,285,283,281,279,277,240,482,484,242,252,256,262,551,633,634,635,636,309,311,526,313,315,317,553,319,321,491,493,495,497,499,501,503,505,507,509,511,513,515,517,521,523]
+    mediaTagIds: [2905,2907,2925,3050,3122,3123,3125,3126,3127,3139,3140,3141,3142,3143,3144,3420,3438,3439,3440,3441,3442,3443,3444,3445,3446,3447,3448,3449]
+    mediaType: ""
+    orderBy: "view_count"
+    orderByDirection: "unknown"
+    page: 1
+    projectId: ${projectId}
+    size: 10
+  expected_status: 400
+  expected_response:
+    code: 400
+    msg: "orderByDirection 值非法"
+
+- name: "Monitor-Picture-单天查询"
+  method: POST
+  url: /api/post/monitor/picture
+  headers:
+    Content-Type: application/json
+    e-project-id: "${projectId}"
+  json:
+    begDate: "2025-11-06"
+    endDate: "2025-11-06"
+    hierarchyItemIds: [307,305,303,301,299,297,295,293,291,289,287,285,283,281,279,277,240,482,484,242,252,256,262,551,633,634,635,636,309,311,526,313,315,317,553,319,321,491,493,495,497,499,501,503,505,507,509,511,513,515,517,521,523]
+    mediaTagIds: [2905,2907,2925,3050,3122,3123,3125,3126,3127,3139,3140,3141,3142,3143,3144,3420,3438,3439,3440,3441,3442,3443,3444,3445,3446,3447,3448,3449]
+    mediaType: ""
+    orderBy: "view_count"
+    orderByDirection: "desc"
+    page: 1
+    projectId: ${projectId}
+    size: 10
+  expected_status: 200
+  expected_response:
+    code: 0
+    msg: "success"
+    data: {}

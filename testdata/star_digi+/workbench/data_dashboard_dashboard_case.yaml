@@ -1,0 +1,166 @@
+# ==================== 正常场景 ====================
+- name: "Dashboard-概览-正常查询"
+  method: POST
+  url: /api/overview/workbench/dashboard
+  headers:
+    Content-Type: application/json
+    e-project-id: "${projectId}"
+  json:
+    projectId: ${projectId}
+    begDate: "2025-11-01"
+    endDate: "2025-11-13"
+    isPublic: "0"
+    mediaTagIds: [2905,2907,2925,3050,3122,3123,3125,3126,3127,3139,3140,3141,3142,3143,3144,3420,3438,3439,3440,3441,3442,3443,3444,3445,3446,3447,3448,3449]
+    hierarchyItemIds: [307,305,303,301,299,297,295,293,291,289,287,285,283,281,279,277,240,482,484,242,252,256,262,551,633,634,635,636,309,311,526,313,315,317,553,319,321,491,493,495,497,499,501,503,505,507,509,511,513,515,517,521,523]
+  expected_status: 200
+  expected_response:
+    code: 0
+    msg: "success"
+    data: {}
+
+# ==================== 异常场景 ====================
+- name: "Dashboard-概览-缺失 e-project-id"
+  method: POST
+  url: /api/overview/workbench/dashboard
+  headers:
+    Content-Type: application/json
+  json:
+    projectId: ${projectId}
+    begDate: "2025-11-01"
+    endDate: "2025-11-13"
+    isPublic: "0"
+    mediaTagIds: [2905,2907,2925,3050,3122,3123,3125,3126,3127,3139,3140,3141,3142,3143,3144,3420,3438,3439,3440,3441,3442,3443,3444,3445,3446,3447,3448,3449]
+    hierarchyItemIds: [307,305,303,301,299,297,295,293,291,289,287,285,283,281,279,277,240,482,484,242,252,256,262,551,633,634,635,636,309,311,526,313,315,317,553,319,321,491,493,495,497,499,501,503,505,507,509,511,513,515,517,521,523]
+  expected_status: 400
+  expected_response:
+    code: 400
+    msg: "缺少必要请求头 e-project-id"
+
+- name: "Dashboard-概览-projectId 与头不一致"
+  method: POST
+  url: /api/overview/workbench/dashboard
+  headers:
+    Content-Type: application/json
+    e-project-id: "${projectId}"
+  json:
+    projectId: 999999
+    begDate: "2025-11-01"
+    endDate: "2025-11-13"
+    isPublic: "0"
+    mediaTagIds: [2905,2907,2925,3050,3122,3123,3125,3126,3127,3139,3140,3141,3142,3143,3144,3420,3438,3439,3440,3441,3442,3443,3444,3445,3446,3447,3448,3449]
+    hierarchyItemIds: [307,305,303,301,299,297,295,293,291,289,287,285,283,281,279,277,240,482,484,242,252,256,262,551,633,634,635,636,309,311,526,313,315,317,553,319,321,491,493,495,497,499,501,503,505,507,509,511,513,515,517,521,523]
+  expected_status: 403
+  expected_response:
+    code: 403
+    msg: "项目权限不匹配"
+
+- name: "Dashboard-概览-日期区间超过 31 天"
+  method: POST
+  url: /api/overview/workbench/dashboard
+  headers:
+    Content-Type: application/json
+    e-project-id: "${projectId}"
+  json:
+    projectId: ${projectId}
+    begDate: "2025-10-01"
+    endDate: "2025-11-13"
+    isPublic: "0"
+    mediaTagIds: [2905,2907,2925,3050,3122,3123,3125,3126,3127,3139,3140,3141,3142,3143,3144,3420,3438,3439,3440,3441,3442,3443,3444,3445,3446,3447,3448,3449]
+    hierarchyItemIds: [307,305,303,301,299,297,295,293,291,289,287,285,283,281,279,277,240,482,484,242,252,256,262,551,633,634,635,636,309,311,526,313,315,317,553,319,321,491,493,495,497,499,501,503,505,507,509,511,513,515,517,521,523]
+  expected_status: 400
+  expected_response:
+    code: 400
+    msg: "查询区间不能超过 31 天"
+
+- name: "Dashboard-概览-begDate > endDate"
+  method: POST
+  url: /api/overview/workbench/dashboard
+  headers:
+    Content-Type: application/json
+    e-project-id: "${projectId}"
+  json:
+    projectId: ${projectId}
+    begDate: "2025-11-13"
+    endDate: "2025-11-01"
+    isPublic: "0"
+    mediaTagIds: [2905,2907,2925,3050,3122,3123,3125,3126,3127,3139,3140,3141,3142,3143,3144,3420,3438,3439,3440,3441,3442,3443,3444,3445,3446,3447,3448,3449]
+    hierarchyItemIds: [307,305,303,301,299,297,295,293,291,289,287,285,283,281,279,277,240,482,484,242,252,256,262,551,633,634,635,636,309,311,526,313,315,317,553,319,321,491,493,495,497,499,501,503,505,507,509,511,513,515,517,521,523]
+  expected_status: 400
+  expected_response:
+    code: 400
+    msg: "开始日期不能晚于结束日期"
+
+- name: "Dashboard-概览-isPublic 枚举值非法"
+  method: POST
+  url: /api/overview/workbench/dashboard
+  headers:
+    Content-Type: application/json
+    e-project-id: "${projectId}"
+  json:
+    projectId: ${projectId}
+    begDate: "2025-11-01"
+    endDate: "2025-11-13"
+    isPublic: "2"
+    mediaTagIds: [2905,2907,2925,3050,3122,3123,3125,3126,3127,3139,3140,3141,3142,3143,3144,3420,3438,3439,3440,3441,3442,3443,3444,3445,3446,3447,3448,3449]
+    hierarchyItemIds: [307,305,303,301,299,297,295,293,291,289,287,285,283,281,279,277,240,482,484,242,252,256,262,551,633,634,635,636,309,311,526,313,315,317,553,319,321,491,493,495,497,499,501,503,505,507,509,511,513,515,517,521,523]
+  expected_status: 400
+  expected_response:
+    code: 400
+    msg: "isPublic 值非法"
+
+- name: "Dashboard-概览-hierarchyItemIds 为空"
+  method: POST
+  url: /api/overview/workbench/dashboard
+  headers:
+    Content-Type: application/json
+    e-project-id: "${projectId}"
+  json:
+    projectId: ${projectId}
+    begDate: "2025-11-01"
+    endDate: "2025-11-13"
+    isPublic: "0"
+    mediaTagIds: [2905,2907,2925,3050,3122,3123,3125,3126,3127,3139,3140,3141,3142,3143,3144,3420,3438,3439,3440,3441,3442,3443,3444,3445,3446,3447,3448,3449]
+    hierarchyItemIds: []
+  expected_status: 200
+  expected_response:
+    code: 0
+    msg: "success"
+    data: {}
+
+- name: "Dashboard-概览-mediaTagIds 为空"
+  method: POST
+  url: /api/overview/workbench/dashboard
+  headers:
+    Content-Type: application/json
+    e-project-id: "${projectId}"
+  json:
+    projectId: ${projectId}
+    begDate: "2025-11-01"
+    endDate: "2025-11-13"
+    isPublic: "0"
+    mediaTagIds: []
+    hierarchyItemIds: [307,305,303,301,299,297,295,293,291,289,287,285,283,281,279,277,240,482,484,242,252,256,262,551,633,634,635,636,309,311,526,313,315,317,553,319,321,491,493,495,497,499,501,503,505,507,509,511,513,515,517,521,523]
+  expected_status: 200
+  expected_response:
+    code: 0
+    msg: "success"
+    data: {}
+
+- name: "Dashboard-概览-单天查询"
+  method: POST
+  url: /api/overview/workbench/dashboard
+  headers:
+    Content-Type: application/json
+    e-project-id: "${projectId}"
+  json:
+    projectId: ${projectId}
+    begDate: "2025-11-06"
+    endDate: "2025-11-06"
+    isPublic: "0"
+    mediaTagIds: [2905,2907,2925,3050,3122,3123,3125,3126,3127,3139,3140,3141,3142,3143,3144,3420,3438,3439,3440,3441,3442,3443,3444,3445,3446,3447,3448,3449]
+    hierarchyItemIds: [307,305,303,301,299,297,295,293,291,289,287,285,283,281,279,277,240,482,484,242,252,256,262,551,633,634,635,636,309,311,526,313,315,317,553,319,321,491,493,495,497,499,501,503,505,507,509,511,513,515,517,521,523]
+  expected_status: 200
+  expected_response:
+    code: 0
+    msg: "success"
+    data: {}

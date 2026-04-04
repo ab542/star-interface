@@ -1,0 +1,212 @@
+# ==================== 正常场景 ====================
+- name: "Ecommerce-TikTokLive-正常查询"
+  method: POST
+  url: /api/ecommerce/media-tiktok-live/live-monitoring/statistics
+  headers:
+    Content-Type: application/json
+    e-project-id: "${projectId}"
+  json:
+    competitorType: 0
+    startTime: "2025-10-01"
+    endTime: "2025-11-15"
+    platform: "Tiktok"
+    # principalIds: [25, 75, 113, 137, 144, 164, 189, 208, 220, 240, 298, 328, 329, 330, 336, 337, 338, 344, 345, 349, 365, 369, 389, 391, 392, 393, 408, 472]
+    # tags: [2905, 2907, 2925, 3050, 3122, 3123, 3125, 3126, 3127, 3139, 3140, 3141, 3142, 3143, 3144, 3420, 3438, 3439, 3440, 3441, 3442, 3443, 3444, 3445, 3446, 3447, 3448, 3449]
+    # hierarchyItemIds: [307, 305, 303, 301, 299, 297, 295, 293, 291, 289, 287, 285, 283, 281, 279, 277, 240, 482, 484, 242, 252, 256, 262, 551, 633, 634, 635, 636, 309, 311, 526, 313, 315, 317, 553, 319, 321, 491, 493, 495, 497, 499, 501, 503, 505, 507, 509, 511, 513, 515, 517, 521, 523]
+  expected_status: 200
+  expected_response:
+    code: 0
+    msg: "success"
+    data: {}
+
+- name: "Ecommerce-TikTokLive-competitorType 为 1"
+  method: POST
+  url: /api/ecommerce/media-tiktok-live/live-monitoring/statistics
+  headers:
+    Content-Type: application/json
+    e-project-id: "${projectId}"
+  json:
+    competitorType: 1
+    startTime: "2025-10-01"
+    endTime: "2025-11-15"
+    platform: "Tiktok"
+    principalIds: [25, 75, 113, 137, 144, 164, 189, 208, 220, 240, 298, 328, 329, 330, 336, 337, 338, 344, 345, 349, 365, 369, 389, 391, 392, 393, 408, 472]
+    tags: [2905, 2907, 2925, 3050, 3122, 3123, 3125, 3126, 3127, 3139, 3140, 3141, 3142, 3143, 3144, 3420, 3438, 3439, 3440, 3441, 3442, 3443, 3444, 3445, 3446, 3447, 3448, 3449]
+    hierarchyItemIds: [307, 305, 303, 301, 299, 297, 295, 293, 291, 289, 287, 285, 283, 281, 279, 277, 240, 482, 484, 242, 252, 256, 262, 551, 633, 634, 635, 636, 309, 311, 526, 313, 315, 317, 553, 319, 321, 491, 493, 495, 497, 499, 501, 503, 505, 507, 509, 511, 513, 515, 517, 521, 523]
+  expected_status: 200
+  expected_response:
+    code: 0
+    msg: "success"
+    data: {}
+
+# ==================== 异常场景 ====================
+- name: "Ecommerce-TikTokLive-platform 传非法值"
+  method: POST
+  url: /api/ecommerce/media-tiktok-live/live-monitoring/statistics
+  headers:
+    Content-Type: application/json
+    e-project-id: "${projectId}"
+  json:
+    competitorType: 0
+    startTime: "2025-10-01"
+    endTime: "2025-11-15"
+    platform: "unknown"
+    principalIds: [25, 75, 113, 137, 144, 164, 189, 208, 220, 240, 298, 328, 329, 330, 336, 337, 338, 344, 345, 349, 365, 369, 389, 391, 392, 393, 408, 472]
+    tags: [2905, 2907, 2925, 3050, 3122, 3123, 3125, 3126, 3127, 3139, 3140, 3141, 3142, 3143, 3144, 3420, 3438, 3439, 3440, 3441, 3442, 3443, 3444, 3445, 3446, 3447, 3448, 3449]
+    hierarchyItemIds: [307, 305, 303, 301, 299, 297, 295, 293, 291, 289, 287, 285, 283, 281, 279, 277, 240, 482, 484, 242, 252, 256, 262, 551, 633, 634, 635, 636, 309, 311, 526, 313, 315, 317, 553, 319, 321, 491, 493, 495, 497, 499, 501, 503, 505, 507, 509, 511, 513, 515, 517, 521, 523]
+  expected_status: 400
+  expected_response:
+    code: 400
+    msg: "platform 值非法"
+
+- name: "Ecommerce-TikTokLive-platform 为空字符串"
+  method: POST
+  url: /api/ecommerce/media-tiktok-live/live-monitoring/statistics
+  headers:
+    Content-Type: application/json
+    e-project-id: "${projectId}"
+  json:
+    competitorType: 0
+    startTime: "2025-10-01"
+    endTime: "2025-11-15"
+    platform: ""
+    principalIds: [25, 75, 113, 137, 144, 164, 189, 208, 220, 240, 298, 328, 329, 330, 336, 337, 338, 344, 345, 349, 365, 369, 389, 391, 392, 393, 408, 472]
+    tags: [2905, 2907, 2925, 3050, 3122, 3123, 3125, 3126, 3127, 3139, 3140, 3141, 3142, 3143, 3144, 3420, 3438, 3439, 3440, 3441, 3442, 3443, 3444, 3445, 3446, 3447, 3448, 3449]
+    hierarchyItemIds: [307, 305, 303, 301, 299, 297, 295, 293, 291, 289, 287, 285, 283, 281, 279, 277, 240, 482, 484, 242, 252, 256, 262, 551, 633, 634, 635, 636, 309, 311, 526, 313, 315, 317, 553, 319, 321, 491, 493, 495, 497, 499, 501, 503, 505, 507, 509, 511, 513, 515, 517, 521, 523]
+  expected_status: 400
+  expected_response:
+    code: 400
+    msg: "platform 不能为空"
+
+- name: "Ecommerce-TikTokLive-competitorType 传非法值"
+  method: POST
+  url: /api/ecommerce/media-tiktok-live/live-monitoring/statistics
+  headers:
+    Content-Type: application/json
+    e-project-id: "${projectId}"
+  json:
+    competitorType: 2
+    startTime: "2025-10-01"
+    endTime: "2025-11-15"
+    platform: "Tiktok"
+    principalIds: [25, 75, 113, 137, 144, 164, 189, 208, 220, 240, 298, 328, 329, 330, 336, 337, 338, 344, 345, 349, 365, 369, 389, 391, 392, 393, 408, 472]
+    tags: [2905, 2907, 2925, 3050, 3122, 3123, 3125, 3126, 3127, 3139, 3140, 3141, 3142, 3143, 3144, 3420, 3438, 3439, 3440, 3441, 3442, 3443, 3444, 3445, 3446, 3447, 3448, 3449]
+    hierarchyItemIds: [307, 305, 303, 301, 299, 297, 295, 293, 291, 289, 287, 285, 283, 281, 279, 277, 240, 482, 484, 242, 252, 256, 262, 551, 633, 634, 635, 636, 309, 311, 526, 313, 315, 317, 553, 319, 321, 491, 493, 495, 497, 499, 501, 503, 505, 507, 509, 511, 513, 515, 517, 521, 523]
+  expected_status: 400
+  expected_response:
+    code: 400
+    msg: "competitorType 值非法"
+
+- name: "Ecommerce-TikTokLive-principalIds 为空数组"
+  method: POST
+  url: /api/ecommerce/media-tiktok-live/live-monitoring/statistics
+  headers:
+    Content-Type: application/json
+    e-project-id: "${projectId}"
+  json:
+    competitorType: 0
+    startTime: "2025-10-01"
+    endTime: "2025-11-15"
+    platform: "Tiktok"
+    principalIds: []
+    tags: [2905, 2907, 2925, 3050, 3122, 3123, 3125, 3126, 3127, 3139, 3140, 3141, 3142, 3143, 3144, 3420, 3438, 3439, 3440, 3441, 3442, 3443, 3444, 3445, 3446, 3447, 3448, 3449]
+    hierarchyItemIds: [307, 305, 303, 301, 299, 297, 295, 293, 291, 289, 287, 285, 283, 281, 279, 277, 240, 482, 484, 242, 252, 256, 262, 551, 633, 634, 635, 636, 309, 311, 526, 313, 315, 317, 553, 319, 321, 491, 493, 495, 497, 499, 501, 503, 505, 507, 509, 511, 513, 515, 517, 521, 523]
+  expected_status: 400
+  expected_response:
+    code: 400
+    msg: "principalIds 不能为空"
+
+- name: "Ecommerce-TikTokLive-tags 为空数组"
+  method: POST
+  url: /api/ecommerce/media-tiktok-live/live-monitoring/statistics
+  headers:
+    Content-Type: application/json
+    e-project-id: "${projectId}"
+  json:
+    competitorType: 0
+    startTime: "2025-10-01"
+    endTime: "2025-11-15"
+    platform: "Tiktok"
+    principalIds: [25, 75, 113, 137, 144, 164, 189, 208, 220, 240, 298, 328, 329, 330, 336, 337, 338, 344, 345, 349, 365, 369, 389, 391, 392, 393, 408, 472]
+    tags: []
+    hierarchyItemIds: [307, 305, 303, 301, 299, 297, 295, 293, 291, 289, 287, 285, 283, 281, 279, 277, 240, 482, 484, 242, 252, 256, 262, 551, 633, 634, 635, 636, 309, 311, 526, 313, 315, 317, 553, 319, 321, 491, 493, 495, 497, 499, 501, 503, 505, 507, 509, 511, 513, 515, 517, 521, 523]
+  expected_status: 400
+  expected_response:
+    code: 400
+    msg: "tags 不能为空"
+
+- name: "Ecommerce-TikTokLive-hierarchyItemIds 传非法值"
+  method: POST
+  url: /api/ecommerce/media-tiktok-live/live-monitoring/statistics
+  headers:
+    Content-Type: application/json
+    e-project-id: "${projectId}"
+  json:
+    competitorType: 0
+    startTime: "2025-10-01"
+    endTime: "2025-11-15"
+    platform: "Tiktok"
+    principalIds: [25, 75, 113, 137, 144, 164, 189, 208, 220, 240, 298, 328, 329, 330, 336, 337, 338, 344, 345, 349, 365, 369, 389, 391, 392, 393, 408, 472]
+    tags: [2905, 2907, 2925, 3050, 3122, 3123, 3125, 3126, 3127, 3139, 3140, 3141, 3142, 3143, 3144, 3420, 3438, 3439, 3440, 3441, 3442, 3443, 3444, 3445, 3446, 3447, 3448, 3449]
+    hierarchyItemIds: [999999]
+  expected_status: 400
+  expected_response:
+    code: 400
+    msg: "hierarchyItemIds 值非法"
+
+- name: "Ecommerce-TikTokLive-hierarchyItemIds 为空数组"
+  method: POST
+  url: /api/ecommerce/media-tiktok-live/live-monitoring/statistics
+  headers:
+    Content-Type: application/json
+    e-project-id: "${projectId}"
+  json:
+    competitorType: 0
+    startTime: "2025-10-01"
+    endTime: "2025-11-15"
+    platform: "Tiktok"
+    principalIds: [25, 75, 113, 137, 144, 164, 189, 208, 220, 240, 298, 328, 329, 330, 336, 337, 338, 344, 345, 349, 365, 369, 389, 391, 392, 393, 408, 472]
+    tags: [2905, 2907, 2925, 3050, 3122, 3123, 3125, 3126, 3127, 3139, 3140, 3141, 3142, 3143, 3144, 3420, 3438, 3439, 3440, 3441, 3442, 3443, 3444, 3445, 3446, 3447, 3448, 3449]
+    hierarchyItemIds: []
+  expected_status: 400
+  expected_response:
+    code: 400
+    msg: "hierarchyItemIds 不能为空"
+
+- name: "Ecommerce-TikTokLive-日期区间超过 31 天"
+  method: POST
+  url: /api/ecommerce/media-tiktok-live/live-monitoring/statistics
+  headers:
+    Content-Type: application/json
+    e-project-id: "${projectId}"
+  json:
+    competitorType: 0
+    startTime: "2025-10-01"
+    endTime: "2025-11-30"
+    platform: "Tiktok"
+    principalIds: [25, 75, 113, 137, 144, 164, 189, 208, 220, 240, 298, 328, 329, 330, 336, 337, 338, 344, 345, 349, 365, 369, 389, 391, 392, 393, 408, 472]
+    tags: [2905, 2907, 2925, 3050, 3122, 3123, 3125, 3126, 3127, 3139, 3140, 3141, 3142, 3143, 3144, 3420, 3438, 3439, 3440, 3441, 3442, 3443, 3444, 3445, 3446, 3447, 3448, 3449]
+    hierarchyItemIds: [307, 305, 303, 301, 299, 297, 295, 293, 291, 289, 287, 285, 283, 281, 279, 277, 240, 482, 484, 242, 252, 256, 262, 551, 633, 634, 635, 636, 309, 311, 526, 313, 315, 317, 553, 319, 321, 491, 493, 495, 497, 499, 501, 503, 505, 507, 509, 511, 513, 515, 517, 521, 523]
+  expected_status: 400
+  expected_response:
+    code: 400
+    msg: "查询区间不能超过 31 天"
+
+- name: "Ecommerce-TikTokLive-startTime 晚于 endTime"
+  method: POST
+  url: /api/ecommerce/media-tiktok-live/live-monitoring/statistics
+  headers:
+    Content-Type: application/json
+    e-project-id: "${projectId}"
+  json:
+    competitorType: 0
+    startTime: "2025-11-15"
+    endTime: "2025-10-01"
+    platform: "Tiktok"
+    principalIds: [25, 75, 113, 137, 144, 164, 189, 208, 220, 240, 298, 328, 329, 330, 336, 337, 338, 344, 345, 349, 365, 369, 389, 391, 392, 393, 408, 472]
+    tags: [2905, 2907, 2925, 3050, 3122, 3123, 3125, 3126, 3127, 3139, 3140, 3141, 3142, 3143, 3144, 3420, 3438, 3439, 3440, 3441, 3442, 3443, 3444, 3445, 3446, 3447, 3448, 3449]
+    hierarchyItemIds: [307, 305, 303, 301, 299, 297, 295, 293, 291, 289, 287, 285, 283, 281, 279, 277, 240, 482, 484, 242, 252, 256, 262, 551, 633, 634, 635, 636, 309, 311, 526, 313, 315, 317, 553, 319, 321, 491, 493, 495, 497, 499, 501, 503, 505, 507, 509, 511, 513, 515, 517, 521, 523]
+  expected_status: 400
+  expected_response:
+    code: 400
+    msg: "开始时间不能晚于结束时间"

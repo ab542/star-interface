@@ -1,0 +1,213 @@
+# ==================== 异常场景 ====================
+
+- name: "日期区间超过 31 天"
+  method: POST
+  url: /api/dashboard/project/rank/detail
+  headers:
+    Content-Type: application/json
+    e-project-id: "${projectId}"   # ← 占位
+  json:
+    beginDate: "2025-10-01"
+    endDate: "2025-11-13"        # 43 天
+    hierarchyId: 77
+    hierarchyItemIds: [307,305,303,301,299,297,295,293,291,289,287,285,283,281,279,277,240,482,484,242,252,256,262,551,633,634,635,636,309,311,526,313,315,317,553,319,321,491,493,495,497,499,501,503,505,507,509,511,513,515,517,521,523]
+    page: 1
+    platform: "facebook"
+    principalIds: [25]
+    projectId: "${projectId}"   # ← 占位
+    rankType: 1
+    size: 10
+    sortType: "fansAdd"
+    tagIds: []
+  expected_status: 400
+  expected_response:
+    code: 400
+    msg: "查询区间不能超过 31 天"
+
+- name: "beginDate > endDate"
+  method: POST
+  url: /api/dashboard/project/rank/detail
+  headers:
+    Content-Type: application/json
+    e-project-id: "${projectId}"   # ← 占位
+  json:
+    beginDate: "2025-11-13"
+    endDate: "2025-11-06"
+    hierarchyId: 77
+    hierarchyItemIds: [307,305,303,301,299,297,295,293,291,289,287,285,283,281,279,277,240,482,484,242,252,256,262,551,633,634,635,636,309,311,526,313,315,317,553,319,321,491,493,495,497,499,501,503,505,507,509,511,513,515,517,521,523]
+    page: 1
+    platform: "facebook"
+    principalIds: [25]
+    projectId: "${projectId}"   # ← 占位
+    rankType: 1
+    size: 10
+    sortType: "fansAdd"
+    tagIds: []
+  expected_status: 400
+  expected_response:
+    code: 400
+    msg: "开始日期不能晚于结束日期"
+
+- name: "platform 枚举值非法"
+  method: POST
+  url: /api/dashboard/project/rank/detail
+  headers:
+    Content-Type: application/json
+    e-project-id: "${projectId}"   # ← 占位
+  json:
+    beginDate: "2025-11-06"
+    endDate: "2025-11-13"
+    hierarchyId: 77
+    hierarchyItemIds: [307,305,303,301,299,297,295,293,291,289,287,285,283,281,279,277,240,482,484,242,252,256,262,551,633,634,635,636,309,311,526,313,315,317,553,319,321,491,493,495,497,499,501,503,505,507,509,511,513,515,517,521,523]
+    page: 1
+    platform: "tiktok3"        # 不在 [tiktok facebook, instagram, youtube] 内
+    principalIds: [25]
+    projectId: "${projectId}"   # ← 占位
+    rankType: 1
+    size: 10
+    sortType: "fansAdd"
+    tagIds: []
+  expected_status: 400
+  expected_response:
+    code: 400
+    msg: "platform 值非法"
+
+- name: "page 为 0（非法页码）"
+  method: POST
+  url: /api/dashboard/project/rank/detail
+  headers:
+    Content-Type: application/json
+    e-project-id: "${projectId}"   # ← 占位
+  json:
+    beginDate: "2025-11-06"
+    endDate: "2025-11-13"
+    hierarchyId: 77
+    hierarchyItemIds: [307,305,303,301,299,297,295,293,291,289,287,285,283,281,279,277,240,482,484,242,252,256,262,551,633,634,635,636,309,311,526,313,315,317,553,319,321,491,493,495,497,499,501,503,505,507,509,511,513,515,517,521,523]
+    page: 0
+    platform: "facebook"
+    principalIds: [25]
+    projectId: "${projectId}"   # ← 占位
+    rankType: 1
+    size: 10
+    sortType: "fansAdd"
+    tagIds: []
+  expected_status: 400
+  expected_response:
+    code: 400
+    msg: "页码必须从 1 开始"
+
+- name: "size 超过最大 200"
+  method: POST
+  url: /api/dashboard/project/rank/detail
+  headers:
+    Content-Type: application/json
+    e-project-id: "${projectId}"   # ← 占位
+  json:
+    beginDate: "2025-11-06"
+    endDate: "2025-11-13"
+    hierarchyId: 77
+    hierarchyItemIds: [307,305,303,301,299,297,295,293,291,289,287,285,283,281,279,277,240,482,484,242,252,256,262,551,633,634,635,636,309,311,526,313,315,317,553,319,321,491,493,495,497,499,501,503,505,507,509,511,513,515,517,521,523]
+    page: 1
+    platform: "facebook"
+    principalIds: [25]
+    projectId: "${projectId}"   # ← 占位
+    rankType: 1
+    size: 500
+    sortType: "fansAdd"
+    tagIds: []
+  expected_status: 400
+  expected_response:
+    code: 400
+    msg: "每页条数不能超过 200"
+
+- name: "hierarchyId 不存在"
+  method: POST
+  url: /api/dashboard/project/rank/detail
+  headers:
+    Content-Type: application/json
+    e-project-id: "${projectId}"   # ← 占位
+  json:
+    beginDate: "2025-11-06"
+    endDate: "2025-11-13"
+    hierarchyId: 999999
+    hierarchyItemIds: [307,305,303,301,299,297,295,293,291,289,287,285,283,281,279,277,240,482,484,242,252,256,262,551,633,634,635,636,309,311,526,313,315,317,553,319,321,491,493,495,497,499,501,503,505,507,509,511,513,515,517,521,523]
+    page: 1
+    platform: "facebook"
+    principalIds: [25]
+    projectId: "${projectId}"   # ← 占位
+    rankType: 1
+    size: 10
+    sortType: "fansAdd"
+    tagIds: []
+  expected_status: 404
+  expected_response:
+    code: 404
+    msg: "维度不存在"
+
+- name: "hierarchyItemIds 为空数组"
+  method: POST
+  url: /api/dashboard/project/rank/detail
+  headers:
+    Content-Type: application/json
+    e-project-id: "${projectId}"   # ← 占位
+  json:
+    beginDate: "2025-11-06"
+    endDate: "2025-11-13"
+    hierarchyId: 77
+    hierarchyItemIds: []
+    page: 1
+    platform: "facebook"
+    principalIds: [25]
+    projectId: "${projectId}"   # ← 占位
+    rankType: 1
+    size: 10
+    sortType: "fansAdd"
+    tagIds: []
+  expected_status: 200
+  expected_response:
+    code: 0
+    msg: "success"
+    data: []
+
+- name: "tagIds 含不存在 ID"
+  method: POST
+  url: /api/dashboard/project/rank/detail
+  headers:
+    Content-Type: application/json
+    e-project-id: "${projectId}"   # ← 占位
+  json:
+    beginDate: "2025-11-06"
+    endDate: "2025-11-13"
+    hierarchyId: 77
+    hierarchyItemIds: [307,305,303,301,299,297,295,293,291,289,287,285,283,281,279,277,240,482,484,242,252,256,262,551,633,634,635,636,309,311,526,313,315,317,553,319,321,491,493,495,497,499,501,503,505,507,509,511,513,515,517,521,523]
+    page: 1
+    platform: "facebook"
+    principalIds: [25]
+    projectId: "${projectId}"   # ← 占位
+    rankType: 1
+    size: 10
+    sortType: "fansAdd"
+    tagIds: [999999]
+  expected_status: 200
+  expected_response:
+    code: 0
+    msg: "success"
+    data: []
+
+# ==================== 边界/极限场景 ====================
+- name: "查询单天（ beginDate = endDate ）"
+  method: POST
+  url: /api/dashboard/project/rank/detail
+  headers:
+    Content-Type: application/json
+    e-project-id: "${projectId}"   # ← 占位
+  json:
+    beginDate: "2025-11-06"
+    endDate: "2025-11-06"
+    hierarchyId: 77
+    hierarchyItemIds: [307,305,303,301,299,297,295,293,291,289,287,285,283,281,279,277,240,482,484,242,252,256,262,551,633,634,635,636,309,311,526,313,315,317,553,319,321,491,493,495,497,499,501,503,505,507,509,511,513,515,517,521,523]
+    page: 1
+    platform: "facebook"
+    principalIds: [25]
+    projectId: "${projectId}"   # ← 占位
+    rankType: 1

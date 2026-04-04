@@ -1,0 +1,9 @@
+requests
+pytest
+pyyaml
+loguru
+allure-pytest
+pytest-html
+pyautogui
+pyperclip
+schedule

@@ -1,0 +1,316 @@
+# 
+# platform有facebook、ins 、Tiktok、YouTobe，不传是全部，
+# competitorType有1和0
+
+# ==================== 正常场景 ====================
+- name: "Statistics-正常查询"
+  method: POST
+  url: /api/hierarchy/manager/data/statistics
+  headers:
+    Content-Type: application/json
+    e-project-id: "${projectId}"
+  json:
+    page: 1
+    size: 20
+    platform: ["facebook"]
+    hierarchyId: 238
+    beginDate: "2025-11-01"
+    endDate: "2025-11-14"
+    projectId: ${projectId}
+  expected_status: 200
+  expected_response:
+    code: 0
+    msg: "success"
+    data: {}
+
+- name: "Statistics-平台多值"
+  method: POST
+  url: /api/hierarchy/manager/data/statistics
+  headers:
+    Content-Type: application/json
+    e-project-id: "${projectId}"
+  json:
+    page: 1
+    size: 20
+    platform: ["facebook", "ins"]
+    hierarchyId: 238
+    beginDate: "2025-11-01"
+    endDate: "2025-11-14"
+    projectId: ${projectId}
+  expected_status: 200
+  expected_response:
+    code: 0
+    msg: "success"
+    data: {}
+
+- name: "Statistics-平台不传"
+  method: POST
+  url: /api/hierarchy/manager/data/statistics
+  headers:
+    Content-Type: application/json
+    e-project-id: "${projectId}"
+  json:
+    page: 1
+    size: 20
+    platform: []
+    hierarchyId: 238
+    beginDate: "2025-11-01"
+    endDate: "2025-11-14"
+    projectId: ${projectId}
+  expected_status: 200
+  expected_response:
+    code: 0
+    msg: "success"
+    data: {}
+
+- name: "Statistics-hierarchyId 为品牌"
+  method: POST
+  url: /api/hierarchy/manager/data/statistics
+  headers:
+    Content-Type: application/json
+    e-project-id: "${projectId}"
+  json:
+    page: 1
+    size: 20
+    platform: ["facebook"]
+    hierarchyId: 77
+    beginDate: "2025-11-01"
+    endDate: "2025-11-14"
+    projectId: ${projectId}
+  expected_status: 200
+  expected_response:
+    code: 0
+    msg: "success"
+    data: {}
+
+- name: "Statistics-hierarchyId 为大区"
+  method: POST
+  url: /api/hierarchy/manager/data/statistics
+  headers:
+    Content-Type: application/json
+    e-project-id: "${projectId}"
+  json:
+    page: 1
+    size: 20
+    platform: ["facebook"]
+    hierarchyId: 78
+    beginDate: "2025-11-01"
+    endDate: "2025-11-14"
+    projectId: ${projectId}
+  expected_status: 200
+  expected_response:
+    code: 0
+    msg: "success"
+    data: {}
+
+- name: "Statistics-hierarchyId 为国家"
+  method: POST
+  url: /api/hierarchy/manager/data/statistics
+  headers:
+    Content-Type: application/json
+    e-project-id: "${projectId}"
+  json:
+    page: 1
+    size: 20
+    platform: ["facebook"]
+    hierarchyId: 177
+    beginDate: "2025-11-01"
+    endDate: "2025-11-14"
+    projectId: ${projectId}
+  expected_status: 200
+  expected_response:
+    code: 0
+    msg: "success"
+    data: {}
+
+- name: "Statistics-hierarchyId 为门店"
+  method: POST
+  url: /api/hierarchy/manager/data/statistics
+  headers:
+    Content-Type: application/json
+    e-project-id: "${projectId}"
+  json:
+    page: 1
+    size: 20
+    platform: ["facebook"]
+    hierarchyId: 238
+    beginDate: "2025-11-01"
+    endDate: "2025-11-14"
+    projectId: ${projectId}
+  expected_status: 200
+  expected_response:
+    code: 0
+    msg: "success"
+    data: {}
+
+# ==================== 异常场景 ====================
+- name: "Statistics-platform 传非法值"
+  method: POST
+  url: /api/hierarchy/manager/data/statistics
+  headers:
+    Content-Type: application/json
+    e-project-id: "${projectId}"
+  json:
+    page: 1
+    size: 20
+    platform: ["unknown"]
+    hierarchyId: 238
+    beginDate: "2025-11-01"
+    endDate: "2025-11-14"
+    projectId: ${projectId}
+  expected_status: 400
+  expected_response:
+    code: 400
+    msg: "platform 值非法"
+
+- name: "Statistics-platform 为空数组"
+  method: POST
+  url: /api/hierarchy/manager/data/statistics
+  headers:
+    Content-Type: application/json
+    e-project-id: "${projectId}"
+  json:
+    page: 1
+    size: 20
+    platform: []
+    hierarchyId: 238
+    beginDate: "2025-11-01"
+    endDate: "2025-11-14"
+    projectId: ${projectId}
+  expected_status: 400
+  expected_response:
+    code: 400
+    msg: "platform 不能为空"
+
+- name: "Statistics-hierarchyId 传非法值"
+  method: POST
+  url: /api/hierarchy/manager/data/statistics
+  headers:
+    Content-Type: application/json
+    e-project-id: "${projectId}"
+  json:
+    page: 1
+    size: 20
+    platform: ["facebook"]
+    hierarchyId: 999999
+    beginDate: "2025-11-01"
+    endDate: "2025-11-14"
+    projectId: ${projectId}
+  expected_status: 400
+  expected_response:
+    code: 400
+    msg: "hierarchyId 值非法"
+
+- name: "Statistics-hierarchyId 为空"
+  method: POST
+  url: /api/hierarchy/manager/data/statistics
+  headers:
+    Content-Type: application/json
+    e-project-id: "${projectId}"
+  json:
+    page: 1
+    size: 20
+    platform: ["facebook"]
+    hierarchyId: null
+    beginDate: "2025-11-01"
+    endDate: "2025-11-14"
+    projectId: ${projectId}
+  expected_status: 400
+  expected_response:
+    code: 400
+    msg: "hierarchyId 不能为空"
+
+- name: "Statistics-日期区间超过 31 天"
+  method: POST
+  url: /api/hierarchy/manager/data/statistics
+  headers:
+    Content-Type: application/json
+    e-project-id: "${projectId}"
+  json:
+    page: 1
+    size: 20
+    platform: ["facebook"]
+    hierarchyId: 238
+    beginDate: "2025-10-01"
+    endDate: "2025-11-14"
+    projectId: ${projectId}
+  expected_status: 400
+  expected_response:
+    code: 400
+    msg: "查询区间不能超过 31 天"
+
+- name: "Statistics-beginDate 晚于 endDate"
+  method: POST
+  url: /api/hierarchy/manager/data/statistics
+  headers:
+    Content-Type: application/json
+    e-project-id: "${projectId}"
+  json:
+    page: 1
+    size: 20
+    platform: ["facebook"]
+    hierarchyId: 238
+    beginDate: "2025-11-14"
+    endDate: "2025-11-01"
+    projectId: ${projectId}
+  expected_status: 400
+  expected_response:
+    code: 400
+    msg: "开始日期不能晚于结束日期"
+
+- name: "Statistics-page 为 0"
+  method: POST
+  url: /api/hierarchy/manager/data/statistics
+  headers:
+    Content-Type: application/json
+    e-project-id: "${projectId}"
+  json:
+    page: 0
+    size: 20
+    platform: ["facebook"]
+    hierarchyId: 238
+    beginDate: "2025-11-01"
+    endDate: "2025-11-14"
+    projectId: ${projectId}
+  expected_status: 400
+  expected_response:
+    code: 400
+    msg: "页码必须从 1 开始"
+
+- name: "Statistics-size 为 0"
+  method: POST
+  url: /api/hierarchy/manager/data/statistics
+  headers:
+    Content-Type: application/json
+    e-project-id: "${projectId}"
+  json:
+    page: 1
+    size: 0
+    platform: ["facebook"]
+    hierarchyId: 238
+    beginDate: "2025-11-01"
+    endDate: "2025-11-14"
+    projectId: ${projectId}
+  expected_status: 400
+  expected_response:
+    code: 400
+    msg: "每页条数不能为 0"
+
+- name: "Statistics-size 超过最大值 200"
+  method: POST
+  url: /api/hierarchy/manager/data/statistics
+  headers:
+    Content-Type: application/json
+    e-project-id: "${projectId}"
+  json:
+    page: 1
+    size: 201
+    platform: ["facebook"]
+    hierarchyId: 238
+    beginDate: "2025-11-01"
+    endDate: "2025-11-14"
+    projectId: ${projectId}
+  expected_status: 400
+  expected_response:
+    code: 400
+    msg: "每页条数不能超过 200"
