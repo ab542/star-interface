@@ -10,14 +10,19 @@ HEADERS = {
 }
 
 # 默认项目 ID
-PROJECT_ID = "45"
+DEFAULT_PROJECT_ID = "45"
 
 # 默认登录 credentials
-DEFAULT_LOGIN_EMAIL = "liguorun@ama-auto.com"
-DEFAULT_LOGIN_PASSWORD = "lgr666888"
+# 推荐在 local_config.py 中覆盖这些配置，local_config.py 不会提交到 git
+DEFAULT_LOGIN_EMAIL = "your-email@example.com"
+DEFAULT_LOGIN_PASSWORD = "your-password"
 
 # 尝试导入本地配置（本地配置不会提交到 git）
 try:
     from .local_config import *
 except ImportError:
     pass
+
+# 如果 local_config.py 中定义了 PROJECT_ID，使用它，否则使用默认值
+if 'PROJECT_ID' not in globals():
+    PROJECT_ID = DEFAULT_PROJECT_ID
