@@ -138,21 +138,7 @@ def request_and_assert(
         logger.opt(depth=1).bind(sink="failure").error(f"❌\n  " + _detail(resp, elapsed, "系统异常") + "\n" + "-"*80)
         pytest.fail("系统异常")
 
-    # 8. 业务层 msg 字段作为异常处理（可配置）
-    if fail_on_msg:
-        try:
-            body = resp.json()
-            if isinstance(body, dict) and 'msg' in body and body.get('msg'):
-                msg_val = str(body.get('msg'))
-                # 如果 msg 明确为成功性的短语（如 Success/OK），则不认为是异常
-                if msg_val.strip().lower() not in ("success", "ok", "0", "true"):
-                    logger.opt(depth=1).bind(sink="failure").error(f"❌\n  " + _detail(resp, elapsed, f"Business msg indicates failure: {msg_val}") + "\n" + "-"*80)
-                    pytest.fail(f"Business msg indicates failure: {msg_val}")
-        except Exception:
-            # 无法解析为 JSON 则跳过此检查
-            pass
-
-    # 9. 期望响应字段验证
+    # 8. 期望响应字段验证
     if expected_response is not None:
         try:
             body = resp.json()
@@ -167,6 +153,24 @@ def request_and_assert(
         except Exception as e:
             logger.opt(depth=1).bind(sink="failure").error(f"❌\n  " + _detail(resp, elapsed, f"Failed to validate expected_response: {e}") + "\n" + "-"*80)
             pytest.fail(f"Failed to validate expected_response: {e}")
+
+    # 9. 业务层 msg 字段作为异常处理（可配置）
+    # 如果预期 code != 0 说明是预期的错误响应，此时 msg 应有错误信息，跳过检查
+    expected_code = None
+    if expected_response is not None and 'code' in expected_response:
+        expected_code = expected_response['code']
+    if fail_on_msg and (expected_code is None or expected_code == 0):
+        try:
+            body = resp.json()
+            if isinstance(body, dict) and 'msg' in body and body.get('msg'):
+                msg_val = str(body.get('msg'))
+                # 如果 msg 明确为成功性的短语（如 Success/OK），则不认为是异常
+                if msg_val.strip().lower() not in ("success", "ok", "0", "true"):
+                    logger.opt(depth=1).bind(sink="failure").error(f"❌\n  " + _detail(resp, elapsed, f"Business msg indicates failure: {msg_val}") + "\n" + "-"*80)
+                    pytest.fail(f"Business msg indicates failure: {msg_val}")
+        except Exception:
+            # 无法解析为 JSON 则跳过此检查
+            pass
 
     # 成功
     logger.opt(depth=1).bind(sink="success").info(f"✅\n  " + _detail(resp, elapsed) + "\n" + "-"*80)

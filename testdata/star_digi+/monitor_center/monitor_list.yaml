@@ -1,0 +1,388 @@
+# 监控中心 - 监控账户列表接口测试用例
+# 自动生成自 OpenAPI: api/monitor_center/监控中心用户列表_OpenAPI.json
+# 每个筛选参数单独测试一个用例，确保每个筛选条件独立工作
+#
+# ====================================================================
+# 分类                数量  参数/说明
+# ====================================================================
+# 基础场景              2个  只传分页参数、全参数组合筛选
+# 数组类型参数筛选      6个  brandIds(品牌Ids)、countryIds(国家Ids)、
+#                         industryIds(行业Ids)、regionIds(大区Ids)、
+#                         mediaIds(多个)、mediaIds(单个)
+# 整数枚举类型参数     10个  contentAnalysis(内容分析:开/关)、
+#                         liveAnalysisStatus(直播声音分析:开/关)、
+#                         liveMonitorStatus(直播监控:开/关)、
+#                         liveRecordStatus(直播回放:开/关)、
+#                         status(账户状态:启用/禁用)
+# 字符串类型参数       2个  platform(平台:Amazon/TikTok)
+# 边界测试              3个  页码为0、页大小为0、页大小极大(10000)
+# 特殊值测试            2个  所有数组为空、空平台字符串
+# ====================================================================
+# 总计                26个 测试用例
+# ====================================================================
+
+# 基础场景
+- name: "监控中心 - 获取监控账户列表-只传分页参数"
+  method: POST
+  url: /api/media/monitor/list
+  headers:
+    Content-Type: application/json
+  json:
+    page: 1
+    size: 10
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 3
+
+- name: "监控中心 - 获取监控账户列表-全参数组合筛选"
+  method: POST
+  url: /api/media/monitor/list
+  headers:
+    Content-Type: application/json
+  json:
+    page: 1
+    size: 10
+    brandIds: [49, 228]
+    countryIds: [139, 172]
+    industryIds: [5]
+    regionIds: [1]
+    mediaIds: [380397, 380398]
+    contentAnalysis: 1
+    liveAnalysisStatus: 1
+    liveMonitorStatus: 1
+    liveRecordStatus: 1
+    platform: "amazon"
+    status: 1
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 3
+
+# 单个参数独立测试 - 数组类型参数
+- name: "监控中心 - 获取监控账户列表-按品牌Ids筛选"
+  method: POST
+  url: /api/media/monitor/list
+  headers:
+    Content-Type: application/json
+  json:
+    page: 1
+    size: 10
+    brandIds: [49, 228]
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 3
+
+- name: "监控中心 - 获取监控账户列表-按国家Ids筛选"
+  method: POST
+  url: /api/media/monitor/list
+  headers:
+    Content-Type: application/json
+  json:
+    page: 1
+    size: 10
+    countryIds: [139, 172]
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 3
+
+- name: "监控中心 - 获取监控账户列表-按行业Ids筛选"
+  method: POST
+  url: /api/media/monitor/list
+  headers:
+    Content-Type: application/json
+  json:
+    page: 1
+    size: 10
+    industryIds: [5]
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 3
+
+- name: "监控中心 - 获取监控账户列表-按大区Ids筛选"
+  method: POST
+  url: /api/media/monitor/list
+  headers:
+    Content-Type: application/json
+  json:
+    page: 1
+    size: 10
+    regionIds: [1]
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 3
+
+- name: "监控中心 - 获取监控账户列表-按媒体账户Ids筛选"
+  method: POST
+  url: /api/media/monitor/list
+  headers:
+    Content-Type: application/json
+  json:
+    page: 1
+    size: 10
+    mediaIds: [380397, 380398]
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 3
+
+- name: "监控中心 - 获取监控账户列表-单个媒体账户Id筛选"
+  method: POST
+  url: /api/media/monitor/list
+  headers:
+    Content-Type: application/json
+  json:
+    page: 1
+    size: 10
+    mediaIds: [380397]
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 3
+
+# 单个参数独立测试 - 整数枚举类型参数
+- name: "监控中心 - 获取监控账户列表-内容分析开启筛选"
+  method: POST
+  url: /api/media/monitor/list
+  headers:
+    Content-Type: application/json
+  json:
+    page: 1
+    size: 10
+    contentAnalysis: 1
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 3
+
+- name: "监控中心 - 获取监控账户列表-内容分析关闭筛选"
+  method: POST
+  url: /api/media/monitor/list
+  headers:
+    Content-Type: application/json
+  json:
+    page: 1
+    size: 10
+    contentAnalysis: 0
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 3
+
+- name: "监控中心 - 获取监控账户列表-直播声音分析开启筛选"
+  method: POST
+  url: /api/media/monitor/list
+  headers:
+    Content-Type: application/json
+  json:
+    page: 1
+    size: 10
+    liveAnalysisStatus: 1
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 3
+
+- name: "监控中心 - 获取监控账户列表-直播声音分析关闭筛选"
+  method: POST
+  url: /api/media/monitor/list
+  headers:
+    Content-Type: application/json
+  json:
+    page: 1
+    size: 10
+    liveAnalysisStatus: 0
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 3
+
+- name: "监控中心 - 获取监控账户列表-直播监控开启筛选"
+  method: POST
+  url: /api/media/monitor/list
+  headers:
+    Content-Type: application/json
+  json:
+    page: 1
+    size: 10
+    liveMonitorStatus: 1
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 3
+
+- name: "监控中心 - 获取监控账户列表-直播监控关闭筛选"
+  method: POST
+  url: /api/media/monitor/list
+  headers:
+    Content-Type: application/json
+  json:
+    page: 1
+    size: 10
+    liveMonitorStatus: 0
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 3
+
+- name: "监控中心 - 获取监控账户列表-直播回放开启筛选"
+  method: POST
+  url: /api/media/monitor/list
+  headers:
+    Content-Type: application/json
+  json:
+    page: 1
+    size: 10
+    liveRecordStatus: 1
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 3
+
+- name: "监控中心 - 获取监控账户列表-直播回放关闭筛选"
+  method: POST
+  url: /api/media/monitor/list
+  headers:
+    Content-Type: application/json
+  json:
+    page: 1
+    size: 10
+    liveRecordStatus: 0
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 3
+
+- name: "监控中心 - 获取监控账户列表-已启用状态筛选"
+  method: POST
+  url: /api/media/monitor/list
+  headers:
+    Content-Type: application/json
+  json:
+    page: 1
+    size: 10
+    status: 1
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 3
+
+- name: "监控中心 - 获取监控账户列表-已禁用状态筛选"
+  method: POST
+  url: /api/media/monitor/list
+  headers:
+    Content-Type: application/json
+  json:
+    page: 1
+    size: 10
+    status: 0
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 3
+
+# 单个参数独立测试 - 字符串类型参数
+- name: "监控中心 - 获取监控账户列表-按平台Amazon筛选"
+  method: POST
+  url: /api/media/monitor/list
+  headers:
+    Content-Type: application/json
+  json:
+    page: 1
+    size: 10
+    platform: "amazon"
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 3
+
+- name: "监控中心 - 获取监控账户列表-按平台TikTok筛选"
+  method: POST
+  url: /api/media/monitor/list
+  headers:
+    Content-Type: application/json
+  json:
+    page: 1
+    size: 10
+    platform: "tiktok"
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 3
+
+# 边界测试
+- name: "监控中心 - 获取监控账户列表-页码为0边界测试"
+  method: POST
+  url: /api/media/monitor/list
+  headers:
+    Content-Type: application/json
+  json:
+    page: 0
+    size: 10
+  expected_status: 200
+  expected_response:
+    code: 400
+  max_retries: 1
+
+- name: "监控中心 - 获取监控账户列表-页大小为0边界测试"
+  method: POST
+  url: /api/media/monitor/list
+  headers:
+    Content-Type: application/json
+  json:
+    page: 1
+    size: 0
+  expected_status: 200
+  expected_response:
+    code: 400
+  max_retries: 1
+
+- name: "监控中心 - 获取监控账户列表-页大小极大边界测试"
+  method: POST
+  url: /api/media/monitor/list
+  headers:
+    Content-Type: application/json
+  json:
+    page: 1
+    size: 10000
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 1
+
+# 特殊值测试
+- name: "监控中心 - 获取监控账户列表-所有数组为空测试"
+  method: POST
+  url: /api/media/monitor/list
+  headers:
+    Content-Type: application/json
+  json:
+    page: 1
+    size: 10
+    brandIds: []
+    countryIds: []
+    industryIds: []
+    regionIds: []
+    mediaIds: []
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 1
+
+- name: "监控中心 - 获取监控账户列表-空平台字符串测试"
+  method: POST
+  url: /api/media/monitor/list
+  headers:
+    Content-Type: application/json
+  json:
+    page: 1
+    size: 10
+    platform: ""
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 1

@@ -1,0 +1,109 @@
+# 监控中心 - 监控账户筛选条件列表接口测试用例
+# 自动生成自 OpenAPI: api/monitor_center/监控中心用户筛选条件列表_OpenAPI.json
+# 此接口用于获取可选的媒体账户列表，其返回的id可用于monitor/list接口的mediaIds筛选
+#
+# ====================================================================
+# 分类                数量  参数/说明
+# ====================================================================
+# 基础场景              2个  只传分页参数、带名称关键词筛选
+# 边界测试              3个  页码为0、页大小为0、页大小极大(10000)
+# 特殊值测试            2个  空名称、null名称
+# ====================================================================
+# 总计                7个 测试用例
+# ====================================================================
+
+# 基础场景
+- name: "监控中心 - 获取筛选账户列表-只传分页参数"
+  method: POST
+  url: /api/media/monitor/unique/list
+  headers:
+    Content-Type: application/json
+  json:
+    page: 1
+    size: 10
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 3
+
+- name: "监控中心 - 获取筛选账户列表-按名称关键词筛选"
+  method: POST
+  url: /api/media/monitor/unique/list
+  headers:
+    Content-Type: application/json
+  json:
+    page: 1
+    size: 10
+    name: "test"
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 3
+
+# 边界测试
+- name: "监控中心 - 获取筛选账户列表-页码为0边界测试"
+  method: POST
+  url: /api/media/monitor/unique/list
+  headers:
+    Content-Type: application/json
+  json:
+    page: 0
+    size: 10
+  expected_status: 200
+  expected_response:
+    code: 400
+  max_retries: 1
+
+- name: "监控中心 - 获取筛选账户列表-页大小为0边界测试"
+  method: POST
+  url: /api/media/monitor/unique/list
+  headers:
+    Content-Type: application/json
+  json:
+    page: 1
+    size: 0
+  expected_status: 200
+  expected_response:
+    code: 400
+  max_retries: 1
+
+- name: "监控中心 - 获取筛选账户列表-页大小极大边界测试"
+  method: POST
+  url: /api/media/monitor/unique/list
+  headers:
+    Content-Type: application/json
+  json:
+    page: 1
+    size: 10000
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 1
+
+# 特殊值测试
+- name: "监控中心 - 获取筛选账户列表-空名称测试"
+  method: POST
+  url: /api/media/monitor/unique/list
+  headers:
+    Content-Type: application/json
+  json:
+    page: 1
+    size: 10
+    name: ""
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 1
+
+- name: "监控中心 - 获取筛选账户列表-不传名称测试"
+  method: POST
+  url: /api/media/monitor/unique/list
+  headers:
+    Content-Type: application/json
+  json:
+    page: 1
+    size: 10
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 1
