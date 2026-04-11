@@ -1,0 +1,52 @@
+# 内容发布 - 新建素材库文件夹接口测试用例
+# 生成自 OpenAPI: api/content_publish/新建素材库文件夹_OpenAPI.json
+#
+# ====================================================================
+# 分类                数量  参数/说明
+# ====================================================================
+# 基础场景              1个  正常创建文件夹
+# 边界测试              2个  文件夹名称为空字符串、文件夹名称超长
+# ====================================================================
+# 总计                 3个 测试用例
+# ====================================================================
+
+# 基础场景
+- name: "内容发布 - 新建素材库文件夹-正常创建文件夹"
+  method: POST
+  url: /publish/folder/add
+  headers:
+    Content-Type: application/json
+  json:
+    folderName: "测试新建文件夹"
+    projectId: $projectId
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 3
+
+# 边界测试
+- name: "内容发布 - 新建素材库文件夹-文件夹名称为空字符串"
+  method: POST
+  url: /publish/folder/add
+  headers:
+    Content-Type: application/json
+  json:
+    folderName: ""
+    projectId: $projectId
+  expected_status: 200
+  expected_response:
+    code: 400
+  max_retries: 1
+
+- name: "内容发布 - 新建素材库文件夹-文件夹名称超长边界测试"
+  method: POST
+  url: /publish/folder/add
+  headers:
+    Content-Type: application/json
+  json:
+    folderName: "这是一个超长的文件夹名称超过一百字符测试边界这是一个超长的文件夹名称超过一百字符测试边界这是一个超长的文件夹名称超过一百字符测试边界这是一个超长的文件夹名称超过一百字符测试边界"
+    projectId: $projectId
+  expected_status: 200
+  expected_response:
+    code: 400
+  max_retries: 1
