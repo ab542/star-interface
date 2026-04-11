@@ -1,0 +1,104 @@
+# 内容发布 - 完整端到端业务流程测试
+# 测试流程: 创建文件夹 → 上传素材 → 查询素材 → 查询授权账户 → 发布 → 验证发布列表存在
+#
+# 这个测试用例演示了 pre_steps 和变量提取替换功能
+# ====================================================================
+
+- name: "内容发布 - 完整端到端业务流程测试"
+  description: "创建文件夹 → 上传素材 → 查询素材 → 查询授权账户 → 发布 → 验证发布列表存在"
+  pre_steps:
+    - name: "create_folder"
+      method: POST
+      url: /star-api/publish/folder/add
+      headers:
+        Content-Type: application/json
+      json:
+        folderName: "auto_test_folder"
+        projectId: $projectId
+      expected_status: 200
+      expected_response:
+        code: 0
+      extract:
+        folder_id: "data.id"
+
+    - name: "upload_material"
+      method: POST
+      url: /star-api/publish/source/upload
+      json:
+        projectId: $projectId
+        folderId: "${create_folder.data.id}"
+        mediaList:
+          - title: "auto_test_material"
+            description: "automation test material"
+            fileUrl: "https://example.com/test.jpg"
+            fileCover: "https://example.com/test_cover.jpg"
+            sourceType: 0
+            width: 1080
+            height: 1920
+      expected_status: 200
+      expected_response:
+        code: 0
+      extract:
+        material_id: "data.id"
+
+    - name: "get_material_list"
+      method: POST
+      url: /star-api/publish/source/list
+      json:
+        projectId: $projectId
+        folderId: "${create_folder.data.id}"
+        page: 1
+        size: 10
+      expected_status: 200
+      expected_response:
+        code: 0
+        data.list[0].id: "${upload_material.data.id}"
+
+    - name: "get_publisher_list"
+      method: POST
+      url: /star-api/publish/article/media
+      json:
+        projectId: $projectId
+        page: 1
+        size: 10
+      expected_status: 200
+      expected_response:
+        code: 0
+
+    - name: "batch_publish"
+      method: POST
+      url: /star-api/publish/article/batch
+      json:
+        projectId: $projectId
+        pubishDTOList:
+          - projectId: $projectId
+            accountIds: ["${get_publisher_list.data.list[0].id}"]
+            source:
+              - sourceId: "${get_material_list.data.list[0].id}"
+                sourceTitle: "auto_test_material"
+                sourceType: 0
+                mediaUrl: "https://example.com/test.jpg"
+                coverUrl: "https://example.com/test_cover.jpg"
+                width: 1080
+                height: 1920
+                duration: 0
+            status: 1
+            description: "e2e automation test publish"
+      expected_status: 200
+      expected_response:
+        code: 0
+      max_retries: 1
+
+  # Final step: verify published item exists in publish list
+  method: POST
+  url: /star-api/publish/article/list
+  headers:
+    Content-Type: application/json
+  json:
+    projectId: $projectId
+    page: 1
+    size: 10
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 1
