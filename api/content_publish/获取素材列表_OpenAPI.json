@@ -1,0 +1,370 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "电商ERP接口文档",
+    "version": "v1.0",
+    "title": "电商ERP接口文档",
+    "contact": {
+      "name": "likaicheng"
+    }
+  },
+  "host": "star-api-test.xiaofeilun.cn",
+  "basePath": "/star-api",
+  "schemes": [],
+  "consumes": [
+    "*/*"
+  ],
+  "produces": [
+    "*/*"
+  ],
+  "paths": {
+    "/star-api/publish/source/list": {
+      "post": {
+        "tags": [
+          "发布素材库接口"
+        ],
+        "summary": "获取素材列表",
+        "operationId": "listSourceUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "sourceSearchDTO",
+            "description": "sourceSearchDTO",
+            "required": true,
+            "schema": {
+              "originalRef": "素材列表查询条件",
+              "$ref": "#/definitions/素材列表查询条件"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "originalRef": "Result«PageWrapper«PublishSource对象»»",
+              "$ref": "#/definitions/Result«PageWrapper«PublishSource对象»»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "responsesObject": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "originalRef": "Result«PageWrapper«PublishSource对象»»",
+              "$ref": "#/definitions/Result«PageWrapper«PublishSource对象»»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false,
+        "x-order": "2147483647"
+      }
+    }
+  },
+  "definitions": {
+    "素材列表查询条件": {
+      "type": "object",
+      "properties": {
+        "begDate": {
+          "type": "string",
+          "description": "开始时间",
+          "refType": null
+        },
+        "designerIdList": {
+          "type": "array",
+          "description": "设计师Id",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "refType": "integer"
+        },
+        "endDate": {
+          "type": "string",
+          "description": "结束时间",
+          "refType": null
+        },
+        "facebookStatus": {
+          "type": "integer",
+          "format": "int32",
+          "description": "facebook发布状态 0-否 1-是",
+          "refType": null
+        },
+        "folderId": {
+          "type": "integer",
+          "format": "int32",
+          "description": "文件夹Id",
+          "refType": null
+        },
+        "insStatus": {
+          "type": "integer",
+          "format": "int32",
+          "description": "ins发布状态 0-否 1-是",
+          "refType": null
+        },
+        "page": {
+          "type": "integer",
+          "format": "int32",
+          "description": "页码",
+          "refType": null
+        },
+        "projectId": {
+          "type": "integer",
+          "format": "int32",
+          "description": "项目Id",
+          "refType": null
+        },
+        "publishStatusList": {
+          "type": "array",
+          "description": "掩码列表",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "refType": "integer"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32",
+          "description": "页大小",
+          "refType": null
+        },
+        "sourceIdList": {
+          "type": "array",
+          "description": "素材id列表",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "refType": "integer"
+        },
+        "sourceType": {
+          "type": "integer",
+          "format": "int32",
+          "description": "素材类型 0-图片 1-视频",
+          "refType": null
+        },
+        "tiktokStatus": {
+          "type": "integer",
+          "format": "int32",
+          "description": "tiktok发布状态 0-否 1-是",
+          "refType": null
+        },
+        "youtubeStatus": {
+          "type": "integer",
+          "format": "int32",
+          "description": "youtube发布状态 0-否 1-是",
+          "refType": null
+        }
+      },
+      "title": "素材列表查询条件"
+    },
+    "Result«PageWrapper«PublishSource对象»»": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "data": {
+          "originalRef": "PageWrapper«PublishSource对象»",
+          "$ref": "#/definitions/PageWrapper«PublishSource对象»"
+        },
+        "enMsg": {
+          "type": "string"
+        },
+        "msg": {
+          "type": "string"
+        }
+      },
+      "title": "Result«PageWrapper«PublishSource对象»»"
+    },
+    "PageWrapper«PublishSource对象»": {
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "originalRef": "PublishSource对象",
+            "$ref": "#/definitions/PublishSource对象"
+          },
+          "refType": "PublishSource对象"
+        },
+        "page": {
+          "type": "integer",
+          "format": "int32",
+          "refType": null
+        },
+        "pageToken": {
+          "type": "string",
+          "refType": null
+        },
+        "pos": {
+          "type": "integer",
+          "format": "int32",
+          "refType": null
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32",
+          "refType": null
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64",
+          "refType": null
+        },
+        "totalItems": {
+          "type": "integer",
+          "format": "int64",
+          "refType": null
+        }
+      },
+      "title": "PageWrapper«PublishSource对象»"
+    },
+    "PublishSource对象": {
+      "type": "object",
+      "properties": {
+        "avatar": {
+          "type": "string",
+          "description": "设计者头像",
+          "refType": null
+        },
+        "coverUrl": {
+          "type": "string",
+          "description": "封面地址",
+          "refType": null
+        },
+        "createTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "创建时间",
+          "refType": null
+        },
+        "description": {
+          "type": "string",
+          "description": "素材文案",
+          "refType": null
+        },
+        "designId": {
+          "type": "integer",
+          "format": "int32",
+          "description": "设计师用户id",
+          "refType": null
+        },
+        "duration": {
+          "type": "integer",
+          "format": "int32",
+          "description": "时长",
+          "refType": null
+        },
+        "height": {
+          "type": "integer",
+          "format": "int32",
+          "description": "高",
+          "refType": null
+        },
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "refType": null
+        },
+        "isDeleted": {
+          "type": "integer",
+          "format": "int32",
+          "refType": null
+        },
+        "mediaUrl": {
+          "type": "string",
+          "description": "预览地址",
+          "refType": null
+        },
+        "nickName": {
+          "type": "string",
+          "description": "设计者名称",
+          "refType": null
+        },
+        "platformList": {
+          "type": "array",
+          "description": "发布平台合集",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "refType": "integer"
+        },
+        "projectId": {
+          "type": "integer",
+          "format": "int32",
+          "description": "项目Id",
+          "refType": null
+        },
+        "publishStatus": {
+          "type": "integer",
+          "format": "int32",
+          "description": "发布状态",
+          "refType": null
+        },
+        "sourceMd": {
+          "type": "string",
+          "description": "素材md5",
+          "refType": null
+        },
+        "sourceType": {
+          "type": "integer",
+          "format": "int32",
+          "description": "素材类型 0-图片 1-视频",
+          "refType": null
+        },
+        "title": {
+          "type": "string",
+          "description": "素材标题",
+          "refType": null
+        },
+        "updateTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "更新时间",
+          "refType": null
+        },
+        "width": {
+          "type": "integer",
+          "format": "int32",
+          "description": "宽",
+          "refType": null
+        }
+      },
+      "title": "PublishSource对象",
+      "description": "发布素材"
+    }
+  }
+}

@@ -9,9 +9,10 @@
   pre_steps:
     - name: "create_folder"
       method: POST
-      url: /star-api/publish/folder/add
+      url: /api/publish/folder/add
       headers:
         Content-Type: application/json
+        e-project-id: "${projectId}"
       json:
         folderName: "auto_test_folder"
         projectId: $projectId
@@ -23,7 +24,10 @@
 
     - name: "upload_material"
       method: POST
-      url: /star-api/publish/source/upload
+      url: /api/publish/source/upload
+      headers:
+        Content-Type: application/json
+        e-project-id: "${projectId}"
       json:
         projectId: $projectId
         folderId: "${create_folder.data.id}"
@@ -43,7 +47,10 @@
 
     - name: "get_material_list"
       method: POST
-      url: /star-api/publish/source/list
+      url: /api/publish/source/list
+      headers:
+        Content-Type: application/json
+        e-project-id: "${projectId}"
       json:
         projectId: $projectId
         folderId: "${create_folder.data.id}"
@@ -56,7 +63,10 @@
 
     - name: "get_publisher_list"
       method: POST
-      url: /star-api/publish/article/media
+      url: /api/publish/article/media
+      headers:
+        Content-Type: application/json
+        e-project-id: "${projectId}"
       json:
         projectId: $projectId
         page: 1
@@ -67,7 +77,10 @@
 
     - name: "batch_publish"
       method: POST
-      url: /star-api/publish/article/batch
+      url: /api/publish/article/batch
+      headers:
+        Content-Type: application/json
+        e-project-id: "${projectId}"
       json:
         projectId: $projectId
         pubishDTOList:
@@ -91,9 +104,10 @@
 
   # Final step: verify published item exists in publish list
   method: POST
-  url: /star-api/publish/article/list
+  url: /api/publish/article/list
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     projectId: $projectId
     page: 1

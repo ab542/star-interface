@@ -13,9 +13,10 @@
 # 基础场景
 - name: "内容发布 - 新建素材库文件夹-正常创建文件夹"
   method: POST
-  url: /publish/folder/add
+  url: /api/publish/folder/add
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     folderName: "测试新建文件夹"
     projectId: $projectId
@@ -27,9 +28,10 @@
 # 边界测试
 - name: "内容发布 - 新建素材库文件夹-文件夹名称为空字符串"
   method: POST
-  url: /publish/folder/add
+  url: /api/publish/folder/add
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     folderName: ""
     projectId: $projectId
@@ -40,9 +42,10 @@
 
 - name: "内容发布 - 新建素材库文件夹-文件夹名称超长边界测试"
   method: POST
-  url: /publish/folder/add
+  url: /api/publish/folder/add
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     folderName: "这是一个超长的文件夹名称超过一百字符测试边界这是一个超长的文件夹名称超过一百字符测试边界这是一个超长的文件夹名称超过一百字符测试边界这是一个超长的文件夹名称超过一百字符测试边界"
     projectId: $projectId

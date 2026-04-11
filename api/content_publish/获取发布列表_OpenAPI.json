@@ -1,0 +1,769 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "电商ERP接口文档",
+    "version": "v1.0",
+    "title": "电商ERP接口文档",
+    "contact": {
+      "name": "likaicheng"
+    }
+  },
+  "host": "star-api-test.xiaofeilun.cn",
+  "basePath": "/star-api",
+  "schemes": [],
+  "consumes": [
+    "*/*"
+  ],
+  "produces": [
+    "*/*"
+  ],
+  "paths": {
+    "/star-api/publish/article/list": {
+      "post": {
+        "tags": [
+          "发布素材库接口"
+        ],
+        "summary": "获取发布列表",
+        "operationId": "listArticleUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "articleSearchDTO",
+            "description": "articleSearchDTO",
+            "required": true,
+            "schema": {
+              "originalRef": "发布状态列表",
+              "$ref": "#/definitions/发布状态列表"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "originalRef": "Result«PageWrapper«发布数据响应»»",
+              "$ref": "#/definitions/Result«PageWrapper«发布数据响应»»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "responsesObject": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "originalRef": "Result«PageWrapper«发布数据响应»»",
+              "$ref": "#/definitions/Result«PageWrapper«发布数据响应»»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false,
+        "x-order": "2147483647"
+      }
+    }
+  },
+  "definitions": {
+    "发布状态列表": {
+      "type": "object",
+      "properties": {
+        "begDate": {
+          "type": "string",
+          "description": "起始时间",
+          "refType": null
+        },
+        "endDate": {
+          "type": "string",
+          "description": "结束时间",
+          "refType": null
+        },
+        "hierarchyItemIds": {
+          "type": "array",
+          "description": "组织架构子项Ids",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "refType": "integer"
+        },
+        "mediaIdList": {
+          "type": "array",
+          "description": "社媒账号Id/uniqueId/displayName",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "refType": "integer"
+        },
+        "page": {
+          "type": "integer",
+          "format": "int32",
+          "description": "page",
+          "refType": null
+        },
+        "projectId": {
+          "type": "integer",
+          "format": "int32",
+          "description": "项目Id",
+          "refType": null
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32",
+          "description": "size",
+          "refType": null
+        },
+        "status": {
+          "type": "string",
+          "description": "发布状态 0 草稿 1 待发布 2 发布 3 发布失败 4 取消 5 删除",
+          "refType": null
+        },
+        "userId": {
+          "type": "integer",
+          "format": "int32",
+          "description": "用户Id",
+          "refType": null
+        }
+      },
+      "title": "发布状态列表"
+    },
+    "Result«PageWrapper«发布数据响应»»": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "data": {
+          "originalRef": "PageWrapper«发布数据响应»",
+          "$ref": "#/definitions/PageWrapper«发布数据响应»"
+        },
+        "enMsg": {
+          "type": "string"
+        },
+        "msg": {
+          "type": "string"
+        }
+      },
+      "title": "Result«PageWrapper«发布数据响应»»"
+    },
+    "PageWrapper«发布数据响应»": {
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "originalRef": "发布数据响应",
+            "$ref": "#/definitions/发布数据响应"
+          },
+          "refType": "发布数据响应"
+        },
+        "page": {
+          "type": "integer",
+          "format": "int32",
+          "refType": null
+        },
+        "pageToken": {
+          "type": "string",
+          "refType": null
+        },
+        "pos": {
+          "type": "integer",
+          "format": "int32",
+          "refType": null
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32",
+          "refType": null
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64",
+          "refType": null
+        },
+        "totalItems": {
+          "type": "integer",
+          "format": "int64",
+          "refType": null
+        }
+      },
+      "title": "PageWrapper«发布数据响应»"
+    },
+    "发布数据响应": {
+      "type": "object",
+      "properties": {
+        "accountDTOList": {
+          "type": "array",
+          "description": "发布账户列表",
+          "items": {
+            "originalRef": "AccountDTO",
+            "$ref": "#/definitions/AccountDTO"
+          },
+          "refType": "AccountDTO"
+        },
+        "batchId": {
+          "type": "string",
+          "description": "批次Id",
+          "refType": null
+        },
+        "projectId": {
+          "type": "integer",
+          "format": "int32",
+          "description": "项目Id",
+          "refType": null
+        },
+        "publishAvatar": {
+          "type": "string",
+          "description": "发布人头像",
+          "refType": null
+        },
+        "publishParam": {
+          "description": "发布素材",
+          "originalRef": "PublishDTO",
+          "$ref": "#/definitions/PublishDTO",
+          "refType": "PublishDTO"
+        },
+        "publishTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "东八区发布时间",
+          "refType": null
+        },
+        "publishUsername": {
+          "type": "string",
+          "description": "发布人昵称",
+          "refType": null
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32",
+          "description": "发布状态",
+          "refType": null
+        },
+        "timezone": {
+          "type": "string",
+          "description": "发布时设置时区",
+          "refType": null
+        },
+        "title": {
+          "type": "string",
+          "description": "标题",
+          "refType": null
+        },
+        "version": {
+          "type": "integer",
+          "format": "int32",
+          "description": "版本",
+          "refType": null
+        },
+        "zoneTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "发布时设置时间",
+          "refType": null
+        }
+      },
+      "title": "发布数据响应"
+    },
+    "AccountDTO": {
+      "type": "object",
+      "properties": {
+        "accountId": {
+          "type": "integer",
+          "format": "int32",
+          "description": "账户id",
+          "refType": null
+        },
+        "avatar": {
+          "type": "string",
+          "description": "账户头像",
+          "refType": null
+        },
+        "avatarUrl": {
+          "type": "string",
+          "description": "账户头像",
+          "refType": null
+        },
+        "displayName": {
+          "type": "string",
+          "description": "账户名称",
+          "refType": null
+        },
+        "platform": {
+          "type": "string",
+          "description": "平台",
+          "refType": null
+        },
+        "platformId": {
+          "type": "integer",
+          "format": "int32",
+          "description": "平台枚举",
+          "refType": null
+        },
+        "reason": {
+          "type": "string",
+          "description": "发布异常原因",
+          "refType": null
+        },
+        "uniqueId": {
+          "type": "string",
+          "description": "uniqueId",
+          "refType": null
+        },
+        "url": {
+          "type": "string",
+          "description": "发布后作品链接",
+          "refType": null
+        }
+      },
+      "title": "AccountDTO"
+    },
+    "PublishDTO": {
+      "type": "object",
+      "properties": {
+        "accountIds": {
+          "type": "array",
+          "description": "发布的账户Id列表",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "refType": "integer"
+        },
+        "againStatus": {
+          "type": "integer",
+          "format": "int32",
+          "description": "重新发布的数据当前状态 只能为取消/失败",
+          "refType": null
+        },
+        "batchId": {
+          "type": "string",
+          "description": "批次Id,用在立即，定时和取消发布接口辨认同一批次下的发布任务",
+          "refType": null
+        },
+        "description": {
+          "type": "string",
+          "description": "描述",
+          "refType": null
+        },
+        "firstComment": {
+          "type": "string",
+          "description": "首次评论内容",
+          "refType": null
+        },
+        "platformReq": {
+          "description": "发布参数",
+          "originalRef": "ArticlePlatformReq",
+          "$ref": "#/definitions/ArticlePlatformReq",
+          "refType": "ArticlePlatformReq"
+        },
+        "projectId": {
+          "type": "integer",
+          "format": "int32",
+          "description": "项目Id",
+          "refType": null
+        },
+        "publishTime": {
+          "type": "string",
+          "description": "发布时间, 格式为 yyyy-MM-dd HH:mm:ss ",
+          "refType": null
+        },
+        "recordId": {
+          "type": "string",
+          "description": "飞书记录Id，暂时保留用作兼容",
+          "refType": null
+        },
+        "source": {
+          "type": "array",
+          "description": "素材对象列表",
+          "items": {
+            "originalRef": "素材对象",
+            "$ref": "#/definitions/素材对象"
+          },
+          "refType": "素材对象"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32",
+          "description": "发布状态 0 草稿 1 待发布 2 发布 3 发布失败 4 取消",
+          "refType": null
+        },
+        "timezone": {
+          "type": "string",
+          "description": "时区",
+          "refType": null
+        }
+      },
+      "title": "PublishDTO"
+    },
+    "ArticlePlatformReq": {
+      "type": "object",
+      "properties": {
+        "facebook": {
+          "originalRef": "facebook发布参数",
+          "$ref": "#/definitions/facebook发布参数",
+          "refType": "facebook发布参数"
+        },
+        "ins": {
+          "originalRef": "Ins发布参数",
+          "$ref": "#/definitions/Ins发布参数",
+          "refType": "Ins发布参数"
+        },
+        "tiktok": {
+          "originalRef": "tiktok发布参数",
+          "$ref": "#/definitions/tiktok发布参数",
+          "refType": "tiktok发布参数"
+        },
+        "youtube": {
+          "originalRef": "Youtube发布参数",
+          "$ref": "#/definitions/Youtube发布参数",
+          "refType": "Youtube发布参数"
+        }
+      },
+      "title": "ArticlePlatformReq"
+    },
+    "facebook发布参数": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string",
+          "description": "后台使用，非参数",
+          "refType": null
+        },
+        "imagesUrl": {
+          "type": "array",
+          "description": "后台使用,非参数",
+          "items": {
+            "type": "string"
+          },
+          "refType": "string"
+        },
+        "link": {
+          "type": "string",
+          "description": "后台使用，非参数",
+          "refType": null
+        },
+        "message": {
+          "type": "string",
+          "description": "后台使用，非参数",
+          "refType": null
+        },
+        "publicType": {
+          "type": "string",
+          "description": "Text-文字 Image-图片 Video-视频 Reels",
+          "refType": null
+        },
+        "published": {
+          "type": "string",
+          "description": "后台使用，非参数",
+          "refType": null
+        },
+        "scheduled_publish_time": {
+          "type": "string",
+          "description": "后台使用，非参数",
+          "refType": null
+        },
+        "title": {
+          "type": "string",
+          "description": "后台使用，非参数",
+          "refType": null
+        },
+        "url": {
+          "type": "string",
+          "description": "后台使用，非参数",
+          "refType": null
+        }
+      },
+      "title": "facebook发布参数"
+    },
+    "Ins发布参数": {
+      "type": "object",
+      "properties": {
+        "image_urls": {
+          "type": "array",
+          "description": "后台使用，非参数",
+          "items": {
+            "type": "string"
+          },
+          "refType": "string"
+        },
+        "public_type": {
+          "type": "string",
+          "description": "Image-单图片 Multi-多图片 Video-视频",
+          "refType": null
+        },
+        "title": {
+          "type": "string",
+          "description": "后台使用，非参数",
+          "refType": null
+        },
+        "url": {
+          "type": "string",
+          "description": "后台使用，非参数",
+          "refType": null
+        }
+      },
+      "title": "Ins发布参数"
+    },
+    "tiktok发布参数": {
+      "type": "object",
+      "properties": {
+        "media_type": {
+          "type": "string",
+          "description": "目前只支持Photo 代表发布图片 没有值时代表视频类型",
+          "refType": null
+        },
+        "post_info": {
+          "description": "帖子信息: 当没有这个参数的时候代表MEDIA_UPLOAD类型 有这个参数时代表代表DIRECT POST类型",
+          "originalRef": "PostInfoDTO",
+          "$ref": "#/definitions/PostInfoDTO",
+          "refType": "PostInfoDTO"
+        },
+        "post_mode": {
+          "type": "string",
+          "description": "可不传 DIRECT POST-直接将内容发布 MEDIA_UPLOAD-上传到账户中进行编辑",
+          "refType": null
+        },
+        "source_info": {
+          "description": "媒体来源信息",
+          "originalRef": "SourceInfoDTO",
+          "$ref": "#/definitions/SourceInfoDTO",
+          "refType": "SourceInfoDTO"
+        }
+      },
+      "title": "tiktok发布参数"
+    },
+    "PostInfoDTO": {
+      "type": "object",
+      "properties": {
+        "auto_add_music": {
+          "type": "boolean",
+          "description": "如果设置为 true，推荐的音乐将自动添加到照片中，如果用户更喜欢其他音乐，稍后可以选择在 TikTok 中更改帖子的音乐。",
+          "refType": null
+        },
+        "brand_content_toggle": {
+          "type": "boolean",
+          "description": "如果内容是用于推广第三方业务的付费合作伙伴关系，则设置为 true。",
+          "refType": null
+        },
+        "brand_organic_toggle": {
+          "type": "boolean",
+          "description": "如果此内容正在推广创作者自己的业务，则设置为 true。",
+          "refType": null
+        },
+        "custom_thumbnail_url": {
+          "type": "string",
+          "description": "自定义图片的可公开访问 HTTP(s) URL，用作视频封面。",
+          "refType": null
+        },
+        "description": {
+          "type": "string",
+          "description": "帖子描述。照片帖子的最大长度为 4000 （UTF-16 符文）。",
+          "refType": null
+        },
+        "disable_comment": {
+          "type": "boolean",
+          "description": "如果设置为 true，则不允许其他 TikTok 用户对此帖子发表评论。",
+          "refType": null
+        },
+        "disable_duet": {
+          "type": "boolean",
+          "description": "如果设置为 true，则不允许其他 TikTok 用户使用此帖子进行二重唱。",
+          "refType": null
+        },
+        "disable_stitch": {
+          "type": "boolean",
+          "description": "如果设置为 true，则不允许其他 TikTok 用户使用此帖子进行拼接。",
+          "refType": null
+        },
+        "is_ads_only": {
+          "type": "boolean",
+          "description": "是否将该视频发布为“仅限广告”的视频。",
+          "refType": null
+        },
+        "is_aigc": {
+          "type": "boolean",
+          "description": "如果设置，视频将在视频描述中使用 Creator labeled as AI-generated tag 进行标记",
+          "refType": null
+        },
+        "privacy_level": {
+          "type": "string",
+          "description": "PUBLIC_TO_EVERYONE, MUTUAL_FOLLOW_FRIENDS, FOLLOWER_OF_CREATOR, SELF_ONLY",
+          "refType": null
+        },
+        "title": {
+          "type": "string",
+          "description": "帖子标题。照片帖子的最大长度为 UTF-16 符文中的 90。",
+          "refType": null
+        },
+        "tto_invite_link": {
+          "type": "string",
+          "description": "TTO 创作者市场活动的邀请链接, 视频将被发布并与邀请链接关联的 TTO 创作者市场活动相关联仅当is_branded_content 被设置为 true时生效",
+          "refType": null
+        },
+        "video_cover_timestamp_ms": {
+          "type": "integer",
+          "format": "int32",
+          "refType": null
+        }
+      },
+      "title": "PostInfoDTO"
+    },
+    "SourceInfoDTO": {
+      "type": "object",
+      "properties": {
+        "chunk_size": {
+          "type": "integer",
+          "format": "int32",
+          "refType": null
+        },
+        "photo_cover_index": {
+          "type": "integer",
+          "format": "int32",
+          "description": "指示要用作封面的照片的索引（从 0 开始）",
+          "refType": null
+        },
+        "photo_images": {
+          "type": "array",
+          "description": "一个数组，最多包含 35 个照片内容 URL",
+          "items": {
+            "type": "string"
+          },
+          "refType": "string"
+        },
+        "source": {
+          "type": "string",
+          "description": "只允许 PULL_FROM_URL",
+          "refType": null
+        },
+        "total_chunk_count": {
+          "type": "integer",
+          "format": "int32",
+          "refType": null
+        },
+        "video_size": {
+          "type": "integer",
+          "format": "int32",
+          "refType": null
+        },
+        "video_url": {
+          "type": "string",
+          "description": "一个可公开访问的 URL",
+          "refType": null
+        }
+      },
+      "title": "SourceInfoDTO"
+    },
+    "Youtube发布参数": {
+      "type": "object",
+      "properties": {
+        "content": {
+          "type": "string",
+          "description": "youtube特殊标题",
+          "refType": null
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32",
+          "description": "1-私密 2-公开 3-unlisted",
+          "refType": null
+        },
+        "title": {
+          "type": "string",
+          "description": "后台使用, 非参数",
+          "refType": null
+        },
+        "token": {
+          "type": "string",
+          "description": "后台使用, 非参数",
+          "refType": null
+        },
+        "url": {
+          "type": "string",
+          "description": "后台使用, 非参数",
+          "refType": null
+        }
+      },
+      "title": "Youtube发布参数"
+    },
+    "素材对象": {
+      "type": "object",
+      "properties": {
+        "coverUrl": {
+          "type": "string",
+          "description": "素材封面",
+          "refType": null
+        },
+        "duration": {
+          "type": "integer",
+          "format": "int32",
+          "description": "素材时长",
+          "refType": null
+        },
+        "height": {
+          "type": "integer",
+          "format": "int32",
+          "description": "素材高度",
+          "refType": null
+        },
+        "mediaUrl": {
+          "type": "string",
+          "description": "素材URL",
+          "refType": null
+        },
+        "sourceId": {
+          "type": "integer",
+          "format": "int32",
+          "description": "素材id 新上传素材id为0",
+          "refType": null
+        },
+        "sourceTitle": {
+          "type": "string",
+          "description": "素材标题",
+          "refType": null
+        },
+        "sourceType": {
+          "type": "integer",
+          "format": "int32",
+          "description": "素材类型 0-图片 1-视频",
+          "refType": null
+        },
+        "width": {
+          "type": "integer",
+          "format": "int32",
+          "description": "素材宽度",
+          "refType": null
+        }
+      },
+      "title": "素材对象"
+    }
+  }
+}

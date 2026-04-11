@@ -1,0 +1,172 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "电商ERP接口文档",
+    "version": "v1.0",
+    "title": "电商ERP接口文档",
+    "contact": {
+      "name": "likaicheng"
+    }
+  },
+  "host": "star-api-test.xiaofeilun.cn",
+  "basePath": "/star-api",
+  "schemes": [],
+  "consumes": [
+    "*/*"
+  ],
+  "produces": [
+    "*/*"
+  ],
+  "paths": {
+    "/star-api/publish/folder/add": {
+      "post": {
+        "tags": [
+          "发布素材库接口"
+        ],
+        "summary": "新建素材库文件夹",
+        "operationId": "addFolderUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "folderAddDTO",
+            "description": "folderAddDTO",
+            "required": true,
+            "schema": {
+              "originalRef": "编辑素材库文件夹请求体",
+              "$ref": "#/definitions/编辑素材库文件夹请求体"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "originalRef": "Result«PublishSourceFolder对象»",
+              "$ref": "#/definitions/Result«PublishSourceFolder对象»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "responsesObject": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "originalRef": "Result«PublishSourceFolder对象»",
+              "$ref": "#/definitions/Result«PublishSourceFolder对象»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false,
+        "x-order": "2147483647"
+      }
+    }
+  },
+  "definitions": {
+    "编辑素材库文件夹请求体": {
+      "type": "object",
+      "properties": {
+        "folderName": {
+          "type": "string",
+          "description": "文件夹名称",
+          "refType": null
+        },
+        "projectId": {
+          "type": "integer",
+          "format": "int32",
+          "description": "项目Id",
+          "refType": null
+        }
+      },
+      "title": "编辑素材库文件夹请求体"
+    },
+    "Result«PublishSourceFolder对象»": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "data": {
+          "originalRef": "PublishSourceFolder对象",
+          "$ref": "#/definitions/PublishSourceFolder对象"
+        },
+        "enMsg": {
+          "type": "string"
+        },
+        "msg": {
+          "type": "string"
+        }
+      },
+      "title": "Result«PublishSourceFolder对象»"
+    },
+    "PublishSourceFolder对象": {
+      "type": "object",
+      "properties": {
+        "createTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "创建时间",
+          "refType": null
+        },
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "refType": null
+        },
+        "isDeleted": {
+          "type": "integer",
+          "format": "int32",
+          "refType": null
+        },
+        "name": {
+          "type": "string",
+          "description": "文件夹名称",
+          "refType": null
+        },
+        "projectId": {
+          "type": "integer",
+          "format": "int32",
+          "description": "项目id",
+          "refType": null
+        },
+        "updateTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "更新时间",
+          "refType": null
+        }
+      },
+      "title": "PublishSourceFolder对象",
+      "description": "发布素材文件夹"
+    }
+  }
+}

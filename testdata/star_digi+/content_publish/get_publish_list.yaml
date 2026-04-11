@@ -23,9 +23,10 @@
 # 基础场景
 - name: "内容发布 - 获取发布列表-只传分页参数"
   method: POST
-  url: /star-api/publish/article/list
+  url: /api/publish/article/list
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     page: 1
     size: 10
@@ -37,9 +38,10 @@
 
 - name: "内容发布 - 获取发布列表-全参数组合筛选"
   method: POST
-  url: /star-api/publish/article/list
+  url: /api/publish/article/list
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     page: 1
     size: 10
@@ -59,9 +61,10 @@
 # 数组类型参数筛选
 - name: "内容发布 - 获取发布列表-按组织架构子项Ids筛选"
   method: POST
-  url: /star-api/publish/article/list
+  url: /api/publish/article/list
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     page: 1
     size: 10
@@ -74,9 +77,10 @@
 
 - name: "内容发布 - 获取发布列表-按社媒账号Ids筛选"
   method: POST
-  url: /star-api/publish/article/list
+  url: /api/publish/article/list
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     page: 1
     size: 10
@@ -90,9 +94,10 @@
 # 发布状态枚举筛选
 - name: "内容发布 - 获取发布列表-按草稿状态筛选"
   method: POST
-  url: /star-api/publish/article/list
+  url: /api/publish/article/list
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     page: 1
     size: 10
@@ -105,9 +110,10 @@
 
 - name: "内容发布 - 获取发布列表-按待发布状态筛选"
   method: POST
-  url: /star-api/publish/article/list
+  url: /api/publish/article/list
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     page: 1
     size: 10
@@ -120,9 +126,10 @@
 
 - name: "内容发布 - 获取发布列表-按已发布状态筛选"
   method: POST
-  url: /star-api/publish/article/list
+  url: /api/publish/article/list
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     page: 1
     size: 10
@@ -135,9 +142,10 @@
 
 - name: "内容发布 - 获取发布列表-按发布失败状态筛选"
   method: POST
-  url: /star-api/publish/article/list
+  url: /api/publish/article/list
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     page: 1
     size: 10
@@ -150,9 +158,10 @@
 
 - name: "内容发布 - 获取发布列表-按取消状态筛选"
   method: POST
-  url: /star-api/publish/article/list
+  url: /api/publish/article/list
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     page: 1
     size: 10
@@ -165,9 +174,10 @@
 
 - name: "内容发布 - 获取发布列表-按删除状态筛选"
   method: POST
-  url: /star-api/publish/article/list
+  url: /api/publish/article/list
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     page: 1
     size: 10
@@ -181,9 +191,10 @@
 # 用户Id和时间筛选
 - name: "内容发布 - 获取发布列表-按用户Id筛选"
   method: POST
-  url: /star-api/publish/article/list
+  url: /api/publish/article/list
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     page: 1
     size: 10
@@ -196,9 +207,10 @@
 
 - name: "内容发布 - 获取发布列表-按时间范围筛选"
   method: POST
-  url: /star-api/publish/article/list
+  url: /api/publish/article/list
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     page: 1
     size: 10
@@ -213,9 +225,10 @@
 # 边界测试
 - name: "内容发布 - 获取发布列表-页码为0边界测试"
   method: POST
-  url: /star-api/publish/article/list
+  url: /api/publish/article/list
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     page: 0
     size: 10
@@ -227,9 +240,10 @@
 
 - name: "内容发布 - 获取发布列表-页大小为0边界测试"
   method: POST
-  url: /star-api/publish/article/list
+  url: /api/publish/article/list
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     page: 1
     size: 0
@@ -241,9 +255,10 @@
 
 - name: "内容发布 - 获取发布列表-页大小极大边界测试"
   method: POST
-  url: /star-api/publish/article/list
+  url: /api/publish/article/list
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     page: 1
     size: 10000
@@ -256,9 +271,10 @@
 # 特殊值测试
 - name: "内容发布 - 获取发布列表-空组织架构数组测试"
   method: POST
-  url: /star-api/publish/article/list
+  url: /api/publish/article/list
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     page: 1
     size: 10
@@ -271,9 +287,10 @@
 
 - name: "内容发布 - 获取发布列表-空社媒账号数组测试"
   method: POST
-  url: /star-api/publish/article/list
+  url: /api/publish/article/list
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     page: 1
     size: 10
@@ -286,9 +303,10 @@
 
 - name: "内容发布 - 获取发布列表-单个组织架构Id测试"
   method: POST
-  url: /star-api/publish/article/list
+  url: /api/publish/article/list
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     page: 1
     size: 10
@@ -301,9 +319,10 @@
 
 - name: "内容发布 - 获取发布列表-单个社媒账号Id测试"
   method: POST
-  url: /star-api/publish/article/list
+  url: /api/publish/article/list
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     page: 1
     size: 10
@@ -316,9 +335,10 @@
 
 - name: "内容发布 - 获取发布列表-空起始结束时间测试"
   method: POST
-  url: /star-api/publish/article/list
+  url: /api/publish/article/list
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     page: 1
     size: 10
@@ -332,9 +352,10 @@
 
 - name: "内容发布 - 获取发布列表-缺失projectId测试"
   method: POST
-  url: /star-api/publish/article/list
+  url: /api/publish/article/list
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     page: 1
     size: 10

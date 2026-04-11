@@ -23,9 +23,10 @@
 # 基础场景 - 正常批量发布
 - name: "内容发布 - 批量发布-单个素材发布到单个账户"
   method: POST
-  url: /star-api/publish/article/batch
+  url: /api/publish/article/batch
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     pubishDTOList:
       - projectId: $projectId
@@ -49,9 +50,10 @@
 # 批量组合场景 - 多个素材发布到多个账户
 - name: "内容发布 - 批量发布-多个素材发布到多个账户"
   method: POST
-  url: /star-api/publish/article/batch
+  url: /api/publish/article/batch
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     pubishDTOList:
       - projectId: $projectId
@@ -94,9 +96,10 @@
 # 单个参数独立测试 - 不同发布状态枚举
 - name: "内容发布 - 批量发布-草稿状态发布"
   method: POST
-  url: /star-api/publish/article/batch
+  url: /api/publish/article/batch
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     pubishDTOList:
       - projectId: $projectId
@@ -116,9 +119,10 @@
 
 - name: "内容发布 - 批量发布-待发布状态"
   method: POST
-  url: /star-api/publish/article/batch
+  url: /api/publish/article/batch
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     pubishDTOList:
       - projectId: $projectId
@@ -138,9 +142,10 @@
 
 - name: "内容发布 - 批量发布-已发布状态"
   method: POST
-  url: /star-api/publish/article/batch
+  url: /api/publish/article/batch
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     pubishDTOList:
       - projectId: $projectId
@@ -160,9 +165,10 @@
 
 - name: "内容发布 - 批量发布-发布失败状态"
   method: POST
-  url: /star-api/publish/article/batch
+  url: /api/publish/article/batch
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     pubishDTOList:
       - projectId: $projectId
@@ -182,9 +188,10 @@
 
 - name: "内容发布 - 批量发布-已取消状态"
   method: POST
-  url: /star-api/publish/article/batch
+  url: /api/publish/article/batch
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     pubishDTOList:
       - projectId: $projectId
@@ -205,9 +212,10 @@
 # TikTok平台参数测试
 - name: "内容发布 - 批量发布-TikTok平台发布参数"
   method: POST
-  url: /star-api/publish/article/batch
+  url: /api/publish/article/batch
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     pubishDTOList:
       - projectId: $projectId
@@ -241,9 +249,10 @@
 # Facebook平台参数测试
 - name: "内容发布 - 批量发布-Facebook平台发布参数"
   method: POST
-  url: /star-api/publish/article/batch
+  url: /api/publish/article/batch
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     pubishDTOList:
       - projectId: $projectId
@@ -267,9 +276,10 @@
 # 带首次评论内容
 - name: "内容发布 - 批量发布-带首次评论内容"
   method: POST
-  url: /star-api/publish/article/batch
+  url: /api/publish/article/batch
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     pubishDTOList:
       - projectId: $projectId
@@ -291,9 +301,10 @@
 # 定时发布测试
 - name: "内容发布 - 批量发布-定时发布带时区"
   method: POST
-  url: /star-api/publish/article/batch
+  url: /api/publish/article/batch
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     pubishDTOList:
       - projectId: $projectId
@@ -316,9 +327,10 @@
 # 重新发布测试
 - name: "内容发布 - 批量发布-重新发布已取消内容"
   method: POST
-  url: /star-api/publish/article/batch
+  url: /api/publish/article/batch
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     pubishDTOList:
       - projectId: $projectId
@@ -340,9 +352,10 @@
 # 边界测试
 - name: "内容发布 - 批量发布-空发布列表测试"
   method: POST
-  url: /star-api/publish/article/batch
+  url: /api/publish/article/batch
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     pubishDTOList: []
   expected_status: 200
@@ -352,9 +365,10 @@
 
 - name: "内容发布 - 批量发布-空素材列表测试"
   method: POST
-  url: /star-api/publish/article/batch
+  url: /api/publish/article/batch
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     pubishDTOList:
       - projectId: $projectId
@@ -369,9 +383,10 @@
 
 - name: "内容发布 - 批量发布-空账户列表测试"
   method: POST
-  url: /star-api/publish/article/batch
+  url: /api/publish/article/batch
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     pubishDTOList:
       - projectId: $projectId
@@ -392,9 +407,10 @@
 # 特殊值测试
 - name: "内容发布 - 批量发布-缺少必填pubishDTOList"
   method: POST
-  url: /star-api/publish/article/batch
+  url: /api/publish/article/batch
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json: {}
   expected_status: 200
   expected_response:
@@ -403,9 +419,10 @@
 
 - name: "内容发布 - 批量发布-缺少projectId"
   method: POST
-  url: /star-api/publish/article/batch
+  url: /api/publish/article/batch
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     pubishDTOList:
       - accountIds: [1]
@@ -424,9 +441,10 @@
 
 - name: "内容发布 - 批量发布-缺少accountIds"
   method: POST
-  url: /star-api/publish/article/batch
+  url: /api/publish/article/batch
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     pubishDTOList:
       - projectId: $projectId
@@ -445,9 +463,10 @@
 
 - name: "内容发布 - 批量发布-缺少source"
   method: POST
-  url: /star-api/publish/article/batch
+  url: /api/publish/article/batch
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     pubishDTOList:
       - projectId: $projectId

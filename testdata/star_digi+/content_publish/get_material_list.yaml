@@ -26,9 +26,10 @@
 # 基础场景
 - name: "内容发布 - 获取素材列表-只传分页参数"
   method: POST
-  url: /star-api/publish/source/list
+  url: /api/publish/source/list
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     page: 1
     size: 10
@@ -40,9 +41,10 @@
 
 - name: "内容发布 - 获取素材列表-全参数组合筛选"
   method: POST
-  url: /star-api/publish/source/list
+  url: /api/publish/source/list
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     page: 1
     size: 10
@@ -65,9 +67,10 @@
 # 单个参数独立测试
 - name: "内容发布 - 获取素材列表-按文件夹Id筛选"
   method: POST
-  url: /star-api/publish/source/list
+  url: /api/publish/source/list
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     page: 1
     size: 10
@@ -81,9 +84,10 @@
 # 素材类型枚举筛选
 - name: "内容发布 - 获取素材列表-按图片类型筛选"
   method: POST
-  url: /star-api/publish/source/list
+  url: /api/publish/source/list
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     page: 1
     size: 10
@@ -96,9 +100,10 @@
 
 - name: "内容发布 - 获取素材列表-按视频类型筛选"
   method: POST
-  url: /star-api/publish/source/list
+  url: /api/publish/source/list
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     page: 1
     size: 10
@@ -112,9 +117,10 @@
 # Facebook发布状态筛选
 - name: "内容发布 - 获取素材列表-Facebook未发布筛选"
   method: POST
-  url: /star-api/publish/source/list
+  url: /api/publish/source/list
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     page: 1
     size: 10
@@ -127,9 +133,10 @@
 
 - name: "内容发布 - 获取素材列表-Facebook已发布筛选"
   method: POST
-  url: /star-api/publish/source/list
+  url: /api/publish/source/list
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     page: 1
     size: 10
@@ -143,9 +150,10 @@
 # Instagram发布状态筛选
 - name: "内容发布 - 获取素材列表-Ins未发布筛选"
   method: POST
-  url: /star-api/publish/source/list
+  url: /api/publish/source/list
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     page: 1
     size: 10
@@ -158,9 +166,10 @@
 
 - name: "内容发布 - 获取素材列表-Ins已发布筛选"
   method: POST
-  url: /star-api/publish/source/list
+  url: /api/publish/source/list
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     page: 1
     size: 10
@@ -174,9 +183,10 @@
 # TikTok发布状态筛选
 - name: "内容发布 - 获取素材列表-TikTok未发布筛选"
   method: POST
-  url: /star-api/publish/source/list
+  url: /api/publish/source/list
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     page: 1
     size: 10
@@ -189,9 +199,10 @@
 
 - name: "内容发布 - 获取素材列表-TikTok已发布筛选"
   method: POST
-  url: /star-api/publish/source/list
+  url: /api/publish/source/list
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     page: 1
     size: 10
@@ -205,9 +216,10 @@
 # YouTube发布状态筛选
 - name: "内容发布 - 获取素材列表-YouTube未发布筛选"
   method: POST
-  url: /star-api/publish/source/list
+  url: /api/publish/source/list
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     page: 1
     size: 10
@@ -220,9 +232,10 @@
 
 - name: "内容发布 - 获取素材列表-YouTube已发布筛选"
   method: POST
-  url: /star-api/publish/source/list
+  url: /api/publish/source/list
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     page: 1
     size: 10
@@ -236,9 +249,10 @@
 # 数组类型参数筛选
 - name: "内容发布 - 获取素材列表-按设计师Ids筛选"
   method: POST
-  url: /star-api/publish/source/list
+  url: /api/publish/source/list
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     page: 1
     size: 10
@@ -251,9 +265,10 @@
 
 - name: "内容发布 - 获取素材列表-按发布状态列表筛选"
   method: POST
-  url: /star-api/publish/source/list
+  url: /api/publish/source/list
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     page: 1
     size: 10
@@ -266,9 +281,10 @@
 
 - name: "内容发布 - 获取素材列表-按素材Ids筛选"
   method: POST
-  url: /star-api/publish/source/list
+  url: /api/publish/source/list
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     page: 1
     size: 10
@@ -282,9 +298,10 @@
 # 关键词和时间筛选
 - name: "内容发布 - 获取素材列表-按名称关键词筛选"
   method: POST
-  url: /star-api/publish/source/list
+  url: /api/publish/source/list
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     page: 1
     size: 10
@@ -297,9 +314,10 @@
 
 - name: "内容发布 - 获取素材列表-按时间范围筛选"
   method: POST
-  url: /star-api/publish/source/list
+  url: /api/publish/source/list
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     page: 1
     size: 10
@@ -314,9 +332,10 @@
 # 边界测试
 - name: "内容发布 - 获取素材列表-页码为0边界测试"
   method: POST
-  url: /star-api/publish/source/list
+  url: /api/publish/source/list
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     page: 0
     size: 10
@@ -328,9 +347,10 @@
 
 - name: "内容发布 - 获取素材列表-页大小为0边界测试"
   method: POST
-  url: /star-api/publish/source/list
+  url: /api/publish/source/list
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     page: 1
     size: 0
@@ -342,9 +362,10 @@
 
 - name: "内容发布 - 获取素材列表-页大小极大边界测试"
   method: POST
-  url: /star-api/publish/source/list
+  url: /api/publish/source/list
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     page: 1
     size: 10000
@@ -357,9 +378,10 @@
 # 特殊值测试
 - name: "内容发布 - 获取素材列表-所有数组为空测试"
   method: POST
-  url: /star-api/publish/source/list
+  url: /api/publish/source/list
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     page: 1
     size: 10
@@ -374,9 +396,10 @@
 
 - name: "内容发布 - 获取素材列表-空关键词测试"
   method: POST
-  url: /star-api/publish/source/list
+  url: /api/publish/source/list
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     page: 1
     size: 10
@@ -389,9 +412,10 @@
 
 - name: "内容发布 - 获取素材列表-单个素材Id测试"
   method: POST
-  url: /star-api/publish/source/list
+  url: /api/publish/source/list
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     page: 1
     size: 10
@@ -404,9 +428,10 @@
 
 - name: "内容发布 - 获取素材列表-空时间范围测试"
   method: POST
-  url: /star-api/publish/source/list
+  url: /api/publish/source/list
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     page: 1
     size: 10
@@ -420,9 +445,10 @@
 
 - name: "内容发布 - 获取素材列表-缺失projectId测试"
   method: POST
-  url: /star-api/publish/source/list
+  url: /api/publish/source/list
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     page: 1
     size: 10

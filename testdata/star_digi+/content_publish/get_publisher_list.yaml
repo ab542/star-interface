@@ -17,9 +17,10 @@
 # 基础场景
 - name: "内容发布 - 获取发布达人列表-只传项目Id必填参数"
   method: POST
-  url: /star-api/publish/article/media
+  url: /api/publish/article/media
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     projectId: $PROJECT_ID
   expected_status: 200
@@ -29,9 +30,10 @@
 
 - name: "内容发布 - 获取发布达人列表-全参数组合筛选"
   method: POST
-  url: /star-api/publish/article/media
+  url: /api/publish/article/media
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     projectId: $PROJECT_ID
     authStatus: [0, 1]
@@ -45,9 +47,10 @@
 # 单个参数独立测试 - 数组类型参数筛选
 - name: "内容发布 - 获取发布达人列表-按授权状态筛选"
   method: POST
-  url: /star-api/publish/article/media
+  url: /api/publish/article/media
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     projectId: $PROJECT_ID
     authStatus: [0, 1, 2]
@@ -58,9 +61,10 @@
 
 - name: "内容发布 - 获取发布达人列表-按组织架构筛选"
   method: POST
-  url: /star-api/publish/article/media
+  url: /api/publish/article/media
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     projectId: $PROJECT_ID
     hierarchyItemIds: [1]
@@ -72,9 +76,10 @@
 # 单个参数独立测试 - 整数类型参数筛选
 - name: "内容发布 - 获取发布达人列表-按达人账号Id筛选"
   method: POST
-  url: /star-api/publish/article/media
+  url: /api/publish/article/media
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     projectId: $PROJECT_ID
     mediaId: 1001
@@ -86,9 +91,10 @@
 # 边界测试（该接口不需要分页参数，但保持一致性测试边界场景）
 - name: "内容发布 - 获取发布达人列表-页码为0边界测试"
   method: POST
-  url: /star-api/publish/article/media
+  url: /api/publish/article/media
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     projectId: $PROJECT_ID
     page: 0
@@ -100,9 +106,10 @@
 
 - name: "内容发布 - 获取发布达人列表-页大小为0边界测试"
   method: POST
-  url: /star-api/publish/article/media
+  url: /api/publish/article/media
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     projectId: $PROJECT_ID
     page: 1
@@ -114,9 +121,10 @@
 
 - name: "内容发布 - 获取发布达人列表-页大小极大边界测试"
   method: POST
-  url: /star-api/publish/article/media
+  url: /api/publish/article/media
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     projectId: $PROJECT_ID
     page: 1
@@ -129,9 +137,10 @@
 # 特殊值测试
 - name: "内容发布 - 获取发布达人列表-所有数组为空测试"
   method: POST
-  url: /star-api/publish/article/media
+  url: /api/publish/article/media
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     projectId: $PROJECT_ID
     authStatus: []
@@ -143,9 +152,10 @@
 
 - name: "内容发布 - 获取发布达人列表-缺少所有可选参数测试"
   method: POST
-  url: /star-api/publish/article/media
+  url: /api/publish/article/media
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     projectId: $PROJECT_ID
   expected_status: 200
@@ -155,9 +165,10 @@
 
 - name: "内容发布 - 获取发布达人列表-空授权状态数组测试"
   method: POST
-  url: /star-api/publish/article/media
+  url: /api/publish/article/media
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     projectId: $PROJECT_ID
     authStatus: []

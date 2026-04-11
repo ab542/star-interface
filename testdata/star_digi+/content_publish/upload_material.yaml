@@ -16,9 +16,10 @@
 # 基础场景
 - name: "内容发布 - 上传素材-多素材完整参数"
   method: POST
-  url: /star-api/publish/source/upload
+  url: /api/publish/source/upload
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     projectId: $projectId
     folderId: 1
@@ -45,9 +46,10 @@
 
 - name: "内容发布 - 上传素材-单素材上传"
   method: POST
-  url: /star-api/publish/source/upload
+  url: /api/publish/source/upload
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     projectId: $projectId
     folderId: 1
@@ -67,9 +69,10 @@
 # 嵌套对象参数测试 - 按媒体类型分开测试
 - name: "内容发布 - 上传素材-仅图片类型"
   method: POST
-  url: /star-api/publish/source/upload
+  url: /api/publish/source/upload
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     projectId: $projectId
     folderId: 1
@@ -88,9 +91,10 @@
 
 - name: "内容发布 - 上传素材-仅视频类型"
   method: POST
-  url: /star-api/publish/source/upload
+  url: /api/publish/source/upload
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     projectId: $projectId
     folderId: 1
@@ -111,9 +115,10 @@
 # 边界测试
 - name: "内容发布 - 上传素材-projectId为0"
   method: POST
-  url: /star-api/publish/source/upload
+  url: /api/publish/source/upload
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     projectId: 0
     folderId: 1
@@ -132,9 +137,10 @@
 
 - name: "内容发布 - 上传素材-folderId为0"
   method: POST
-  url: /star-api/publish/source/upload
+  url: /api/publish/source/upload
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     projectId: $projectId
     folderId: 0
@@ -153,9 +159,10 @@
 
 - name: "内容发布 - 上传素材-空媒体列表"
   method: POST
-  url: /star-api/publish/source/upload
+  url: /api/publish/source/upload
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     projectId: $projectId
     folderId: 1
@@ -168,9 +175,10 @@
 # 特殊值测试
 - name: "内容发布 - 上传素材-缺失folderId参数"
   method: POST
-  url: /star-api/publish/source/upload
+  url: /api/publish/source/upload
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     projectId: $projectId
     mediaList:
@@ -188,9 +196,10 @@
 
 - name: "内容发布 - 上传素材-素材缺失描述"
   method: POST
-  url: /star-api/publish/source/upload
+  url: /api/publish/source/upload
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     projectId: $projectId
     folderId: 1
@@ -208,9 +217,10 @@
 
 - name: "内容发布 - 上传素材-素材标题为空字符串"
   method: POST
-  url: /star-api/publish/source/upload
+  url: /api/publish/source/upload
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     projectId: $projectId
     folderId: 1
@@ -229,9 +239,10 @@
 
 - name: "内容发布 - 上传素材-视频缺失封面地址"
   method: POST
-  url: /star-api/publish/source/upload
+  url: /api/publish/source/upload
   headers:
     Content-Type: application/json
+    e-project-id: "${projectId}"
   json:
     projectId: $projectId
     folderId: 1
