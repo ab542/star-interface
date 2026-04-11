@@ -1,0 +1,167 @@
+# 内容发布 - 获取发布达人列表接口测试用例
+# 自动生成自 OpenAPI: api/content_publish/获取发布达人数据_OpenAPI (1).json
+# 每个筛选参数单独测试一个用例，确保每个筛选条件独立工作
+#
+# ====================================================================
+# 分类                数量  参数/说明
+# ====================================================================
+# 基础场景              2个  只传必填参数、全参数组合筛选
+# 数组类型参数筛选      2个  authStatus(授权状态数组)、hierarchyItemIds(组织架构数组)
+# 整数类型参数筛选       2个  mediaId(达人账号Id)、projectId(项目Id)
+# 边界测试              3个  页码为0、页大小为0、页大小极大(10000)
+# 特殊值测试            3个  所有数组为空、缺少可选参数、空授权状态数组
+# ====================================================================
+# 总计                12个 测试用例
+# ====================================================================
+
+# 基础场景
+- name: "内容发布 - 获取发布达人列表-只传项目Id必填参数"
+  method: POST
+  url: /star-api/publish/article/media
+  headers:
+    Content-Type: application/json
+  json:
+    projectId: $PROJECT_ID
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 3
+
+- name: "内容发布 - 获取发布达人列表-全参数组合筛选"
+  method: POST
+  url: /star-api/publish/article/media
+  headers:
+    Content-Type: application/json
+  json:
+    projectId: $PROJECT_ID
+    authStatus: [0, 1]
+    hierarchyItemIds: [1, 2]
+    mediaId: 1001
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 3
+
+# 单个参数独立测试 - 数组类型参数筛选
+- name: "内容发布 - 获取发布达人列表-按授权状态筛选"
+  method: POST
+  url: /star-api/publish/article/media
+  headers:
+    Content-Type: application/json
+  json:
+    projectId: $PROJECT_ID
+    authStatus: [0, 1, 2]
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 3
+
+- name: "内容发布 - 获取发布达人列表-按组织架构筛选"
+  method: POST
+  url: /star-api/publish/article/media
+  headers:
+    Content-Type: application/json
+  json:
+    projectId: $PROJECT_ID
+    hierarchyItemIds: [1]
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 3
+
+# 单个参数独立测试 - 整数类型参数筛选
+- name: "内容发布 - 获取发布达人列表-按达人账号Id筛选"
+  method: POST
+  url: /star-api/publish/article/media
+  headers:
+    Content-Type: application/json
+  json:
+    projectId: $PROJECT_ID
+    mediaId: 1001
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 3
+
+# 边界测试（该接口不需要分页参数，但保持一致性测试边界场景）
+- name: "内容发布 - 获取发布达人列表-页码为0边界测试"
+  method: POST
+  url: /star-api/publish/article/media
+  headers:
+    Content-Type: application/json
+  json:
+    projectId: $PROJECT_ID
+    page: 0
+    size: 10
+  expected_status: 200
+  expected_response:
+    code: 400
+  max_retries: 1
+
+- name: "内容发布 - 获取发布达人列表-页大小为0边界测试"
+  method: POST
+  url: /star-api/publish/article/media
+  headers:
+    Content-Type: application/json
+  json:
+    projectId: $PROJECT_ID
+    page: 1
+    size: 0
+  expected_status: 200
+  expected_response:
+    code: 400
+  max_retries: 1
+
+- name: "内容发布 - 获取发布达人列表-页大小极大边界测试"
+  method: POST
+  url: /star-api/publish/article/media
+  headers:
+    Content-Type: application/json
+  json:
+    projectId: $PROJECT_ID
+    page: 1
+    size: 10000
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 1
+
+# 特殊值测试
+- name: "内容发布 - 获取发布达人列表-所有数组为空测试"
+  method: POST
+  url: /star-api/publish/article/media
+  headers:
+    Content-Type: application/json
+  json:
+    projectId: $PROJECT_ID
+    authStatus: []
+    hierarchyItemIds: []
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 1
+
+- name: "内容发布 - 获取发布达人列表-缺少所有可选参数测试"
+  method: POST
+  url: /star-api/publish/article/media
+  headers:
+    Content-Type: application/json
+  json:
+    projectId: $PROJECT_ID
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 1
+
+- name: "内容发布 - 获取发布达人列表-空授权状态数组测试"
+  method: POST
+  url: /star-api/publish/article/media
+  headers:
+    Content-Type: application/json
+  json:
+    projectId: $PROJECT_ID
+    authStatus: []
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 1
