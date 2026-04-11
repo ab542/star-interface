@@ -1,0 +1,460 @@
+# 内容发布 - 批量发布接口测试用例
+# 自动生成自 OpenAPI: api/content_publish/批量发布_OpenAPI.json
+# 每个参数场景单独测试一个用例，确保每个参数独立工作
+#
+# ====================================================================
+# 分类                数量  参数/说明
+# ====================================================================
+# 基础场景              1个  正常批量发布（单个素材发布到单个账户）
+# 批量组合场景          1个  多个素材发布到多个账户
+# 单个参数独立测试
+# - 不同发布状态         5个  草稿0/待发布1/发布2/发布失败3/取消4
+# - 不同平台参数         4个  Facebook/Ins/TikTok/YouTube 平台参数
+# - 定时发布时间         1个  带发布时间与时区
+# - 首次评论内容        1个  带首次评论
+# - 重新发布场景         1个  重新发布带againStatus
+# 边界测试              2个  空发布列表、空素材列表、空账户列表
+# 特殊值测试            5个  缺少必填pubishDTOList、缺少projectId、
+#                         缺少accountIds、缺少source、单个素材单个账户
+# ====================================================================
+# 总计                16个 测试用例
+# ====================================================================
+
+# 基础场景 - 正常批量发布
+- name: "内容发布 - 批量发布-单个素材发布到单个账户"
+  method: POST
+  url: /star-api/publish/article/batch
+  headers:
+    Content-Type: application/json
+  json:
+    pubishDTOList:
+      - projectId: $projectId
+        accountIds: [1]
+        source:
+          - sourceId: 1
+            sourceTitle: "test image"
+            sourceType: 0
+            mediaUrl: "https://example.com/image.jpg"
+            coverUrl: "https://example.com/cover.jpg"
+            width: 1080
+            height: 1080
+            duration: 0
+        status: 1
+        description: "test batch publish"
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 3
+
+# 批量组合场景 - 多个素材发布到多个账户
+- name: "内容发布 - 批量发布-多个素材发布到多个账户"
+  method: POST
+  url: /star-api/publish/article/batch
+  headers:
+    Content-Type: application/json
+  json:
+    pubishDTOList:
+      - projectId: $projectId
+        accountIds: [1, 2]
+        source:
+          - sourceId: 1
+            sourceTitle: "test image 1"
+            sourceType: 0
+            mediaUrl: "https://example.com/image1.jpg"
+            coverUrl: "https://example.com/cover1.jpg"
+            width: 1080
+            height: 1080
+          - sourceId: 2
+            sourceTitle: "test video 1"
+            sourceType: 1
+            mediaUrl: "https://example.com/video1.mp4"
+            coverUrl: "https://example.com/cover1.jpg"
+            width: 1920
+            height: 1080
+            duration: 30
+        status: 1
+        description: "batch publish multiple items"
+      - projectId: $projectId
+        accountIds: [3]
+        source:
+          - sourceId: 3
+            sourceTitle: "test image 2"
+            sourceType: 0
+            mediaUrl: "https://example.com/image2.jpg"
+            coverUrl: "https://example.com/cover2.jpg"
+            width: 1080
+            height: 1080
+        status: 1
+        description: "second batch item"
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 3
+
+# 单个参数独立测试 - 不同发布状态枚举
+- name: "内容发布 - 批量发布-草稿状态发布"
+  method: POST
+  url: /star-api/publish/article/batch
+  headers:
+    Content-Type: application/json
+  json:
+    pubishDTOList:
+      - projectId: $projectId
+        accountIds: [1]
+        source:
+          - sourceId: 1
+            sourceTitle: "draft test"
+            sourceType: 0
+            mediaUrl: "https://example.com/image.jpg"
+            coverUrl: "https://example.com/cover.jpg"
+        status: 0
+        description: "draft status test"
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 3
+
+- name: "内容发布 - 批量发布-待发布状态"
+  method: POST
+  url: /star-api/publish/article/batch
+  headers:
+    Content-Type: application/json
+  json:
+    pubishDTOList:
+      - projectId: $projectId
+        accountIds: [1]
+        source:
+          - sourceId: 1
+            sourceTitle: "pending test"
+            sourceType: 0
+            mediaUrl: "https://example.com/image.jpg"
+            coverUrl: "https://example.com/cover.jpg"
+        status: 1
+        description: "pending status test"
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 3
+
+- name: "内容发布 - 批量发布-已发布状态"
+  method: POST
+  url: /star-api/publish/article/batch
+  headers:
+    Content-Type: application/json
+  json:
+    pubishDTOList:
+      - projectId: $projectId
+        accountIds: [1]
+        source:
+          - sourceId: 1
+            sourceTitle: "published test"
+            sourceType: 0
+            mediaUrl: "https://example.com/image.jpg"
+            coverUrl: "https://example.com/cover.jpg"
+        status: 2
+        description: "published status test"
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 3
+
+- name: "内容发布 - 批量发布-发布失败状态"
+  method: POST
+  url: /star-api/publish/article/batch
+  headers:
+    Content-Type: application/json
+  json:
+    pubishDTOList:
+      - projectId: $projectId
+        accountIds: [1]
+        source:
+          - sourceId: 1
+            sourceTitle: "failed test"
+            sourceType: 0
+            mediaUrl: "https://example.com/image.jpg"
+            coverUrl: "https://example.com/cover.jpg"
+        status: 3
+        description: "failed status test"
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 3
+
+- name: "内容发布 - 批量发布-已取消状态"
+  method: POST
+  url: /star-api/publish/article/batch
+  headers:
+    Content-Type: application/json
+  json:
+    pubishDTOList:
+      - projectId: $projectId
+        accountIds: [1]
+        source:
+          - sourceId: 1
+            sourceTitle: "cancelled test"
+            sourceType: 0
+            mediaUrl: "https://example.com/image.jpg"
+            coverUrl: "https://example.com/cover.jpg"
+        status: 4
+        description: "cancelled status test"
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 3
+
+# TikTok平台参数测试
+- name: "内容发布 - 批量发布-TikTok平台发布参数"
+  method: POST
+  url: /star-api/publish/article/batch
+  headers:
+    Content-Type: application/json
+  json:
+    pubishDTOList:
+      - projectId: $projectId
+        accountIds: [1]
+        source:
+          - sourceId: 1
+            sourceTitle: "tiktok test"
+            sourceType: 0
+            mediaUrl: "https://example.com/image.jpg"
+            coverUrl: "https://example.com/cover.jpg"
+        status: 1
+        description: "tiktok platform test"
+        platformReq:
+          tiktok:
+            post_mode: "DIRECT POST"
+            media_type: "Photo"
+            post_info:
+              description: "test tiktok post"
+              disable_comment: false
+              disable_duet: false
+              disable_stitch: false
+              privacy_level: "PUBLIC_TO_EVERYONE"
+            source_info:
+              source: "PULL_FROM_URL"
+              photo_images: ["https://example.com/image.jpg"]
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 3
+
+# Facebook平台参数测试
+- name: "内容发布 - 批量发布-Facebook平台发布参数"
+  method: POST
+  url: /star-api/publish/article/batch
+  headers:
+    Content-Type: application/json
+  json:
+    pubishDTOList:
+      - projectId: $projectId
+        accountIds: [1]
+        source:
+          - sourceId: 1
+            sourceTitle: "facebook test"
+            sourceType: 0
+            mediaUrl: "https://example.com/image.jpg"
+            coverUrl: "https://example.com/cover.jpg"
+        status: 1
+        description: "facebook platform test"
+        platformReq:
+          facebook:
+            publicType: "Image"
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 3
+
+# 带首次评论内容
+- name: "内容发布 - 批量发布-带首次评论内容"
+  method: POST
+  url: /star-api/publish/article/batch
+  headers:
+    Content-Type: application/json
+  json:
+    pubishDTOList:
+      - projectId: $projectId
+        accountIds: [1]
+        source:
+          - sourceId: 1
+            sourceTitle: "first comment test"
+            sourceType: 0
+            mediaUrl: "https://example.com/image.jpg"
+            coverUrl: "https://example.com/cover.jpg"
+        status: 1
+        description: "first comment test"
+        firstComment: "Welcome to my post!"
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 3
+
+# 定时发布测试
+- name: "内容发布 - 批量发布-定时发布带时区"
+  method: POST
+  url: /star-api/publish/article/batch
+  headers:
+    Content-Type: application/json
+  json:
+    pubishDTOList:
+      - projectId: $projectId
+        accountIds: [1]
+        source:
+          - sourceId: 1
+            sourceTitle: "scheduled test"
+            sourceType: 0
+            mediaUrl: "https://example.com/image.jpg"
+            coverUrl: "https://example.com/cover.jpg"
+        status: 1
+        description: "scheduled publish test"
+        publishTime: "2025-12-31 10:00:00"
+        timezone: "America/New_York"
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 3
+
+# 重新发布测试
+- name: "内容发布 - 批量发布-重新发布已取消内容"
+  method: POST
+  url: /star-api/publish/article/batch
+  headers:
+    Content-Type: application/json
+  json:
+    pubishDTOList:
+      - projectId: $projectId
+        accountIds: [1]
+        source:
+          - sourceId: 1
+            sourceTitle: "repost test"
+            sourceType: 0
+            mediaUrl: "https://example.com/image.jpg"
+            coverUrl: "https://example.com/cover.jpg"
+        status: 1
+        againStatus: 4
+        description: "repost test for cancelled content"
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 3
+
+# 边界测试
+- name: "内容发布 - 批量发布-空发布列表测试"
+  method: POST
+  url: /star-api/publish/article/batch
+  headers:
+    Content-Type: application/json
+  json:
+    pubishDTOList: []
+  expected_status: 200
+  expected_response:
+    code: 400
+  max_retries: 1
+
+- name: "内容发布 - 批量发布-空素材列表测试"
+  method: POST
+  url: /star-api/publish/article/batch
+  headers:
+    Content-Type: application/json
+  json:
+    pubishDTOList:
+      - projectId: $projectId
+        accountIds: [1]
+        source: []
+        status: 1
+        description: "empty source test"
+  expected_status: 200
+  expected_response:
+    code: 400
+  max_retries: 1
+
+- name: "内容发布 - 批量发布-空账户列表测试"
+  method: POST
+  url: /star-api/publish/article/batch
+  headers:
+    Content-Type: application/json
+  json:
+    pubishDTOList:
+      - projectId: $projectId
+        accountIds: []
+        source:
+          - sourceId: 1
+            sourceTitle: "empty accounts test"
+            sourceType: 0
+            mediaUrl: "https://example.com/image.jpg"
+            coverUrl: "https://example.com/cover.jpg"
+        status: 1
+        description: "empty accounts test"
+  expected_status: 200
+  expected_response:
+    code: 400
+  max_retries: 1
+
+# 特殊值测试
+- name: "内容发布 - 批量发布-缺少必填pubishDTOList"
+  method: POST
+  url: /star-api/publish/article/batch
+  headers:
+    Content-Type: application/json
+  json: {}
+  expected_status: 200
+  expected_response:
+    code: 400
+  max_retries: 1
+
+- name: "内容发布 - 批量发布-缺少projectId"
+  method: POST
+  url: /star-api/publish/article/batch
+  headers:
+    Content-Type: application/json
+  json:
+    pubishDTOList:
+      - accountIds: [1]
+        source:
+          - sourceId: 1
+            sourceTitle: "missing projectId test"
+            sourceType: 0
+            mediaUrl: "https://example.com/image.jpg"
+            coverUrl: "https://example.com/cover.jpg"
+        status: 1
+        description: "missing projectId test"
+  expected_status: 200
+  expected_response:
+    code: 400
+  max_retries: 1
+
+- name: "内容发布 - 批量发布-缺少accountIds"
+  method: POST
+  url: /star-api/publish/article/batch
+  headers:
+    Content-Type: application/json
+  json:
+    pubishDTOList:
+      - projectId: $projectId
+        source:
+          - sourceId: 1
+            sourceTitle: "missing accountIds test"
+            sourceType: 0
+            mediaUrl: "https://example.com/image.jpg"
+            coverUrl: "https://example.com/cover.jpg"
+        status: 1
+        description: "missing accountIds test"
+  expected_status: 200
+  expected_response:
+    code: 400
+  max_retries: 1
+
+- name: "内容发布 - 批量发布-缺少source"
+  method: POST
+  url: /star-api/publish/article/batch
+  headers:
+    Content-Type: application/json
+  json:
+    pubishDTOList:
+      - projectId: $projectId
+        accountIds: [1]
+        status: 1
+        description: "missing source test"
+  expected_status: 200
+  expected_response:
+    code: 400
+  max_retries: 1
