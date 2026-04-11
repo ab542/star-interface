@@ -1,0 +1,344 @@
+# 内容发布 - 获取发布列表接口测试用例
+# 自动生成自 OpenAPI: api/content_publish/获取发布列表_OpenAPI.json
+# 每个筛选参数单独测试一个用例，确保每个筛选条件独立工作
+#
+# ====================================================================
+# 分类                数量  参数/说明
+# ====================================================================
+# 基础场景              2个  只传分页参数（含必填projectId）、全参数组合筛选
+# 单个参数独立测试
+# - 组织架构筛选        1个  hierarchyItemIds（组织架构子项Ids）
+# - 社媒账号筛选        1个  mediaIdList（社媒账号Ids）
+# - 发布状态筛选        6个  0草稿/1待发布/2发布/3发布失败/4取消/5删除
+# - 用户Id筛选          1个  userId（用户Id）
+# - 时间范围筛选        1个  begDate + endDate（起始/结束时间）
+# 边界测试              3个  页码为0、页大小为0、页大小极大(10000)
+# 特殊值测试            6个  空组织架构数组、空社媒账号数组、
+#                         空起始结束时间、缺失projectId、
+#                         单个组织架构Id、单个社媒账号Id
+# ====================================================================
+# 总计                20个 测试用例
+# ====================================================================
+
+# 基础场景
+- name: "内容发布 - 获取发布列表-只传分页参数"
+  method: POST
+  url: /star-api/publish/article/list
+  headers:
+    Content-Type: application/json
+  json:
+    page: 1
+    size: 10
+    projectId: $projectId
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 3
+
+- name: "内容发布 - 获取发布列表-全参数组合筛选"
+  method: POST
+  url: /star-api/publish/article/list
+  headers:
+    Content-Type: application/json
+  json:
+    page: 1
+    size: 10
+    projectId: $projectId
+    hierarchyItemIds: [1, 2]
+    mediaIdList: [1001, 1002]
+    status: "2"
+    userId: 123
+    begDate: "2024-01-01"
+    endDate: "2024-12-31"
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 3
+
+# 单个参数独立测试
+# 数组类型参数筛选
+- name: "内容发布 - 获取发布列表-按组织架构子项Ids筛选"
+  method: POST
+  url: /star-api/publish/article/list
+  headers:
+    Content-Type: application/json
+  json:
+    page: 1
+    size: 10
+    projectId: $projectId
+    hierarchyItemIds: [1, 2]
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 3
+
+- name: "内容发布 - 获取发布列表-按社媒账号Ids筛选"
+  method: POST
+  url: /star-api/publish/article/list
+  headers:
+    Content-Type: application/json
+  json:
+    page: 1
+    size: 10
+    projectId: $projectId
+    mediaIdList: [1001, 1002]
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 3
+
+# 发布状态枚举筛选
+- name: "内容发布 - 获取发布列表-按草稿状态筛选"
+  method: POST
+  url: /star-api/publish/article/list
+  headers:
+    Content-Type: application/json
+  json:
+    page: 1
+    size: 10
+    projectId: $projectId
+    status: "0"
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 3
+
+- name: "内容发布 - 获取发布列表-按待发布状态筛选"
+  method: POST
+  url: /star-api/publish/article/list
+  headers:
+    Content-Type: application/json
+  json:
+    page: 1
+    size: 10
+    projectId: $projectId
+    status: "1"
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 3
+
+- name: "内容发布 - 获取发布列表-按已发布状态筛选"
+  method: POST
+  url: /star-api/publish/article/list
+  headers:
+    Content-Type: application/json
+  json:
+    page: 1
+    size: 10
+    projectId: $projectId
+    status: "2"
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 3
+
+- name: "内容发布 - 获取发布列表-按发布失败状态筛选"
+  method: POST
+  url: /star-api/publish/article/list
+  headers:
+    Content-Type: application/json
+  json:
+    page: 1
+    size: 10
+    projectId: $projectId
+    status: "3"
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 3
+
+- name: "内容发布 - 获取发布列表-按取消状态筛选"
+  method: POST
+  url: /star-api/publish/article/list
+  headers:
+    Content-Type: application/json
+  json:
+    page: 1
+    size: 10
+    projectId: $projectId
+    status: "4"
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 3
+
+- name: "内容发布 - 获取发布列表-按删除状态筛选"
+  method: POST
+  url: /star-api/publish/article/list
+  headers:
+    Content-Type: application/json
+  json:
+    page: 1
+    size: 10
+    projectId: $projectId
+    status: "5"
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 3
+
+# 用户Id和时间筛选
+- name: "内容发布 - 获取发布列表-按用户Id筛选"
+  method: POST
+  url: /star-api/publish/article/list
+  headers:
+    Content-Type: application/json
+  json:
+    page: 1
+    size: 10
+    projectId: $projectId
+    userId: 123
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 3
+
+- name: "内容发布 - 获取发布列表-按时间范围筛选"
+  method: POST
+  url: /star-api/publish/article/list
+  headers:
+    Content-Type: application/json
+  json:
+    page: 1
+    size: 10
+    projectId: $projectId
+    begDate: "2024-01-01"
+    endDate: "2024-12-31"
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 3
+
+# 边界测试
+- name: "内容发布 - 获取发布列表-页码为0边界测试"
+  method: POST
+  url: /star-api/publish/article/list
+  headers:
+    Content-Type: application/json
+  json:
+    page: 0
+    size: 10
+    projectId: $projectId
+  expected_status: 200
+  expected_response:
+    code: 400
+  max_retries: 1
+
+- name: "内容发布 - 获取发布列表-页大小为0边界测试"
+  method: POST
+  url: /star-api/publish/article/list
+  headers:
+    Content-Type: application/json
+  json:
+    page: 1
+    size: 0
+    projectId: $projectId
+  expected_status: 200
+  expected_response:
+    code: 400
+  max_retries: 1
+
+- name: "内容发布 - 获取发布列表-页大小极大边界测试"
+  method: POST
+  url: /star-api/publish/article/list
+  headers:
+    Content-Type: application/json
+  json:
+    page: 1
+    size: 10000
+    projectId: $projectId
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 1
+
+# 特殊值测试
+- name: "内容发布 - 获取发布列表-空组织架构数组测试"
+  method: POST
+  url: /star-api/publish/article/list
+  headers:
+    Content-Type: application/json
+  json:
+    page: 1
+    size: 10
+    projectId: $projectId
+    hierarchyItemIds: []
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 1
+
+- name: "内容发布 - 获取发布列表-空社媒账号数组测试"
+  method: POST
+  url: /star-api/publish/article/list
+  headers:
+    Content-Type: application/json
+  json:
+    page: 1
+    size: 10
+    projectId: $projectId
+    mediaIdList: []
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 1
+
+- name: "内容发布 - 获取发布列表-单个组织架构Id测试"
+  method: POST
+  url: /star-api/publish/article/list
+  headers:
+    Content-Type: application/json
+  json:
+    page: 1
+    size: 10
+    projectId: $projectId
+    hierarchyItemIds: [1]
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 1
+
+- name: "内容发布 - 获取发布列表-单个社媒账号Id测试"
+  method: POST
+  url: /star-api/publish/article/list
+  headers:
+    Content-Type: application/json
+  json:
+    page: 1
+    size: 10
+    projectId: $projectId
+    mediaIdList: [1001]
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 1
+
+- name: "内容发布 - 获取发布列表-空起始结束时间测试"
+  method: POST
+  url: /star-api/publish/article/list
+  headers:
+    Content-Type: application/json
+  json:
+    page: 1
+    size: 10
+    projectId: $projectId
+    begDate: ""
+    endDate: ""
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 1
+
+- name: "内容发布 - 获取发布列表-缺失projectId测试"
+  method: POST
+  url: /star-api/publish/article/list
+  headers:
+    Content-Type: application/json
+  json:
+    page: 1
+    size: 10
+  expected_status: 200
+  expected_response:
+    code: 400
+  max_retries: 1
