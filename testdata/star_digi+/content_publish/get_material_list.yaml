@@ -1,0 +1,432 @@
+# 内容发布 - 获取素材列表接口测试用例
+# 自动生成自 OpenAPI: api/content_publish/获取素材列表_OpenAPI.json
+# 每个筛选参数单独测试一个用例，确保每个筛选条件独立工作
+#
+# ====================================================================
+# 分类                数量  参数/说明
+# ====================================================================
+# 基础场景              2个  只传分页参数（含必填projectId）、全参数组合筛选
+# 单个参数独立测试
+# - 文件夹筛选          1个  folderId（按文件夹Id筛选）
+# - 素材类型筛选        2个  sourceType（图片0/视频1）
+# - 发布状态筛选（各平台） 8个  facebookStatus(0/1)、insStatus(0/1)、
+#                         tiktokStatus(0/1)、youtubeStatus(0/1)
+# - 数组类型筛选        3个  designerIdList（设计师Ids）、
+#                         publishStatusList（发布状态列表）、
+#                         sourceIdList（素材Ids）
+# - 关键词筛选          1个  name（素材标题关键词）
+# - 时间范围筛选        1个  begDate + endDate
+# 边界测试              3个  页码为0、页大小为0、页大小极大(10000)
+# 特殊值测试            5个  所有数组为空、空关键词字符串、
+#                         缺失projectId、空日期范围、单个素材Id
+# ====================================================================
+# 总计                26个 测试用例
+# ====================================================================
+
+# 基础场景
+- name: "内容发布 - 获取素材列表-只传分页参数"
+  method: POST
+  url: /star-api/publish/source/list
+  headers:
+    Content-Type: application/json
+  json:
+    page: 1
+    size: 10
+    projectId: $projectId
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 3
+
+- name: "内容发布 - 获取素材列表-全参数组合筛选"
+  method: POST
+  url: /star-api/publish/source/list
+  headers:
+    Content-Type: application/json
+  json:
+    page: 1
+    size: 10
+    projectId: $projectId
+    folderId: 1
+    sourceType: 0
+    facebookStatus: 0
+    insStatus: 0
+    tiktokStatus: 0
+    youtubeStatus: 0
+    designerIdList: [1, 2]
+    name: "test"
+    begDate: "2024-01-01"
+    endDate: "2024-12-31"
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 3
+
+# 单个参数独立测试
+- name: "内容发布 - 获取素材列表-按文件夹Id筛选"
+  method: POST
+  url: /star-api/publish/source/list
+  headers:
+    Content-Type: application/json
+  json:
+    page: 1
+    size: 10
+    projectId: $projectId
+    folderId: 1
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 3
+
+# 素材类型枚举筛选
+- name: "内容发布 - 获取素材列表-按图片类型筛选"
+  method: POST
+  url: /star-api/publish/source/list
+  headers:
+    Content-Type: application/json
+  json:
+    page: 1
+    size: 10
+    projectId: $projectId
+    sourceType: 0
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 3
+
+- name: "内容发布 - 获取素材列表-按视频类型筛选"
+  method: POST
+  url: /star-api/publish/source/list
+  headers:
+    Content-Type: application/json
+  json:
+    page: 1
+    size: 10
+    projectId: $projectId
+    sourceType: 1
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 3
+
+# Facebook发布状态筛选
+- name: "内容发布 - 获取素材列表-Facebook未发布筛选"
+  method: POST
+  url: /star-api/publish/source/list
+  headers:
+    Content-Type: application/json
+  json:
+    page: 1
+    size: 10
+    projectId: $projectId
+    facebookStatus: 0
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 3
+
+- name: "内容发布 - 获取素材列表-Facebook已发布筛选"
+  method: POST
+  url: /star-api/publish/source/list
+  headers:
+    Content-Type: application/json
+  json:
+    page: 1
+    size: 10
+    projectId: $projectId
+    facebookStatus: 1
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 3
+
+# Instagram发布状态筛选
+- name: "内容发布 - 获取素材列表-Ins未发布筛选"
+  method: POST
+  url: /star-api/publish/source/list
+  headers:
+    Content-Type: application/json
+  json:
+    page: 1
+    size: 10
+    projectId: $projectId
+    insStatus: 0
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 3
+
+- name: "内容发布 - 获取素材列表-Ins已发布筛选"
+  method: POST
+  url: /star-api/publish/source/list
+  headers:
+    Content-Type: application/json
+  json:
+    page: 1
+    size: 10
+    projectId: $projectId
+    insStatus: 1
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 3
+
+# TikTok发布状态筛选
+- name: "内容发布 - 获取素材列表-TikTok未发布筛选"
+  method: POST
+  url: /star-api/publish/source/list
+  headers:
+    Content-Type: application/json
+  json:
+    page: 1
+    size: 10
+    projectId: $projectId
+    tiktokStatus: 0
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 3
+
+- name: "内容发布 - 获取素材列表-TikTok已发布筛选"
+  method: POST
+  url: /star-api/publish/source/list
+  headers:
+    Content-Type: application/json
+  json:
+    page: 1
+    size: 10
+    projectId: $projectId
+    tiktokStatus: 1
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 3
+
+# YouTube发布状态筛选
+- name: "内容发布 - 获取素材列表-YouTube未发布筛选"
+  method: POST
+  url: /star-api/publish/source/list
+  headers:
+    Content-Type: application/json
+  json:
+    page: 1
+    size: 10
+    projectId: $projectId
+    youtubeStatus: 0
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 3
+
+- name: "内容发布 - 获取素材列表-YouTube已发布筛选"
+  method: POST
+  url: /star-api/publish/source/list
+  headers:
+    Content-Type: application/json
+  json:
+    page: 1
+    size: 10
+    projectId: $projectId
+    youtubeStatus: 1
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 3
+
+# 数组类型参数筛选
+- name: "内容发布 - 获取素材列表-按设计师Ids筛选"
+  method: POST
+  url: /star-api/publish/source/list
+  headers:
+    Content-Type: application/json
+  json:
+    page: 1
+    size: 10
+    projectId: $projectId
+    designerIdList: [1, 2]
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 3
+
+- name: "内容发布 - 获取素材列表-按发布状态列表筛选"
+  method: POST
+  url: /star-api/publish/source/list
+  headers:
+    Content-Type: application/json
+  json:
+    page: 1
+    size: 10
+    projectId: $projectId
+    publishStatusList: [0, 1]
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 3
+
+- name: "内容发布 - 获取素材列表-按素材Ids筛选"
+  method: POST
+  url: /star-api/publish/source/list
+  headers:
+    Content-Type: application/json
+  json:
+    page: 1
+    size: 10
+    projectId: $projectId
+    sourceIdList: [1, 2]
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 3
+
+# 关键词和时间筛选
+- name: "内容发布 - 获取素材列表-按名称关键词筛选"
+  method: POST
+  url: /star-api/publish/source/list
+  headers:
+    Content-Type: application/json
+  json:
+    page: 1
+    size: 10
+    projectId: $projectId
+    name: "test"
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 3
+
+- name: "内容发布 - 获取素材列表-按时间范围筛选"
+  method: POST
+  url: /star-api/publish/source/list
+  headers:
+    Content-Type: application/json
+  json:
+    page: 1
+    size: 10
+    projectId: $projectId
+    begDate: "2024-01-01"
+    endDate: "2024-12-31"
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 3
+
+# 边界测试
+- name: "内容发布 - 获取素材列表-页码为0边界测试"
+  method: POST
+  url: /star-api/publish/source/list
+  headers:
+    Content-Type: application/json
+  json:
+    page: 0
+    size: 10
+    projectId: $projectId
+  expected_status: 200
+  expected_response:
+    code: 400
+  max_retries: 1
+
+- name: "内容发布 - 获取素材列表-页大小为0边界测试"
+  method: POST
+  url: /star-api/publish/source/list
+  headers:
+    Content-Type: application/json
+  json:
+    page: 1
+    size: 0
+    projectId: $projectId
+  expected_status: 200
+  expected_response:
+    code: 400
+  max_retries: 1
+
+- name: "内容发布 - 获取素材列表-页大小极大边界测试"
+  method: POST
+  url: /star-api/publish/source/list
+  headers:
+    Content-Type: application/json
+  json:
+    page: 1
+    size: 10000
+    projectId: $projectId
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 1
+
+# 特殊值测试
+- name: "内容发布 - 获取素材列表-所有数组为空测试"
+  method: POST
+  url: /star-api/publish/source/list
+  headers:
+    Content-Type: application/json
+  json:
+    page: 1
+    size: 10
+    projectId: $projectId
+    designerIdList: []
+    publishStatusList: []
+    sourceIdList: []
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 1
+
+- name: "内容发布 - 获取素材列表-空关键词测试"
+  method: POST
+  url: /star-api/publish/source/list
+  headers:
+    Content-Type: application/json
+  json:
+    page: 1
+    size: 10
+    projectId: $projectId
+    name: ""
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 1
+
+- name: "内容发布 - 获取素材列表-单个素材Id测试"
+  method: POST
+  url: /star-api/publish/source/list
+  headers:
+    Content-Type: application/json
+  json:
+    page: 1
+    size: 10
+    projectId: $projectId
+    sourceIdList: [1]
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 1
+
+- name: "内容发布 - 获取素材列表-空时间范围测试"
+  method: POST
+  url: /star-api/publish/source/list
+  headers:
+    Content-Type: application/json
+  json:
+    page: 1
+    size: 10
+    projectId: $projectId
+    begDate: ""
+    endDate: ""
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 1
+
+- name: "内容发布 - 获取素材列表-缺失projectId测试"
+  method: POST
+  url: /star-api/publish/source/list
+  headers:
+    Content-Type: application/json
+  json:
+    page: 1
+    size: 10
+  expected_status: 200
+  expected_response:
+    code: 400
+  max_retries: 1
