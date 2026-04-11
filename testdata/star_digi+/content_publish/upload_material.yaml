@@ -1,0 +1,249 @@
+# 内容发布 - 问我上传素材接口测试用例
+# 自动生成自 OpenAPI: api/content_publish/问我上传素材_OpenAPI.json
+#
+# ====================================================================
+# 分类                数量  参数/说明
+# ====================================================================
+# 基础场景              2个  必填参数完整组合、单素材上传
+# 嵌套对象参数测试     2个  图片类型素材、视频类型素材
+# 边界测试              3个  projectId=0、folderId=0、空媒体列表
+# 特殊值测试           4个  缺失folderId(可选参数)、缺失description、
+#                         空标题字符串、缺失封面地址
+# ====================================================================
+# 总计                11个 测试用例
+# ====================================================================
+
+# 基础场景
+- name: "内容发布 - 上传素材-多素材完整参数"
+  method: POST
+  url: /star-api/publish/source/upload
+  headers:
+    Content-Type: application/json
+  json:
+    projectId: $projectId
+    folderId: 1
+    mediaList:
+      - title: "测试图片素材"
+        description: "这是一张测试图片"
+        fileUrl: "https://example.com/test.jpg"
+        fileCover: "https://example.com/test_cover.jpg"
+        sourceType: 0
+        width: 1080
+        height: 1920
+      - title: "测试视频素材"
+        description: "这是一个测试视频"
+        fileUrl: "https://example.com/test.mp4"
+        fileCover: "https://example.com/test_cover.jpg"
+        sourceType: 1
+        duration: 30
+        width: 1080
+        height: 1920
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 3
+
+- name: "内容发布 - 上传素材-单素材上传"
+  method: POST
+  url: /star-api/publish/source/upload
+  headers:
+    Content-Type: application/json
+  json:
+    projectId: $projectId
+    folderId: 1
+    mediaList:
+      - title: "单素材测试"
+        description: "单个素材测试上传"
+        fileUrl: "https://example.com/single.jpg"
+        fileCover: "https://example.com/single_cover.jpg"
+        sourceType: 0
+        width: 1080
+        height: 1080
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 3
+
+# 嵌套对象参数测试 - 按媒体类型分开测试
+- name: "内容发布 - 上传素材-仅图片类型"
+  method: POST
+  url: /star-api/publish/source/upload
+  headers:
+    Content-Type: application/json
+  json:
+    projectId: $projectId
+    folderId: 1
+    mediaList:
+      - title: "测试图片"
+        description: "图片素材测试"
+        fileUrl: "https://example.com/image_test.jpg"
+        fileCover: "https://example.com/image_cover.jpg"
+        sourceType: 0
+        width: 1200
+        height: 630
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 3
+
+- name: "内容发布 - 上传素材-仅视频类型"
+  method: POST
+  url: /star-api/publish/source/upload
+  headers:
+    Content-Type: application/json
+  json:
+    projectId: $projectId
+    folderId: 1
+    mediaList:
+      - title: "测试视频"
+        description: "视频素材测试"
+        fileUrl: "https://example.com/video_test.mp4"
+        fileCover: "https://example.com/video_cover.jpg"
+        sourceType: 1
+        duration: 60
+        width: 1920
+        height: 1080
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 3
+
+# 边界测试
+- name: "内容发布 - 上传素材-projectId为0"
+  method: POST
+  url: /star-api/publish/source/upload
+  headers:
+    Content-Type: application/json
+  json:
+    projectId: 0
+    folderId: 1
+    mediaList:
+      - title: "projectId边界测试"
+        description: "projectId为0测试"
+        fileUrl: "https://example.com/boundary.jpg"
+        fileCover: "https://example.com/boundary_cover.jpg"
+        sourceType: 0
+        width: 1080
+        height: 1920
+  expected_status: 200
+  expected_response:
+    code: 400
+  max_retries: 1
+
+- name: "内容发布 - 上传素材-folderId为0"
+  method: POST
+  url: /star-api/publish/source/upload
+  headers:
+    Content-Type: application/json
+  json:
+    projectId: $projectId
+    folderId: 0
+    mediaList:
+      - title: "folderId边界测试"
+        description: "folderId为0测试"
+        fileUrl: "https://example.com/boundary.jpg"
+        fileCover: "https://example.com/boundary_cover.jpg"
+        sourceType: 0
+        width: 1080
+        height: 1920
+  expected_status: 200
+  expected_response:
+    code: 400
+  max_retries: 1
+
+- name: "内容发布 - 上传素材-空媒体列表"
+  method: POST
+  url: /star-api/publish/source/upload
+  headers:
+    Content-Type: application/json
+  json:
+    projectId: $projectId
+    folderId: 1
+    mediaList: []
+  expected_status: 200
+  expected_response:
+    code: 400
+  max_retries: 1
+
+# 特殊值测试
+- name: "内容发布 - 上传素材-缺失folderId参数"
+  method: POST
+  url: /star-api/publish/source/upload
+  headers:
+    Content-Type: application/json
+  json:
+    projectId: $projectId
+    mediaList:
+      - title: "缺失folderId测试"
+        description: "不填folderId测试"
+        fileUrl: "https://example.com/missing.jpg"
+        fileCover: "https://example.com/missing_cover.jpg"
+        sourceType: 0
+        width: 1080
+        height: 1920
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 1
+
+- name: "内容发布 - 上传素材-素材缺失描述"
+  method: POST
+  url: /star-api/publish/source/upload
+  headers:
+    Content-Type: application/json
+  json:
+    projectId: $projectId
+    folderId: 1
+    mediaList:
+      - title: "缺失描述测试"
+        fileUrl: "https://example.com/no_desc.jpg"
+        fileCover: "https://example.com/no_desc_cover.jpg"
+        sourceType: 0
+        width: 1080
+        height: 1920
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 1
+
+- name: "内容发布 - 上传素材-素材标题为空字符串"
+  method: POST
+  url: /star-api/publish/source/upload
+  headers:
+    Content-Type: application/json
+  json:
+    projectId: $projectId
+    folderId: 1
+    mediaList:
+      - title: ""
+        description: "空标题测试"
+        fileUrl: "https://example.com/empty_title.jpg"
+        fileCover: "https://example.com/empty_title_cover.jpg"
+        sourceType: 0
+        width: 1080
+        height: 1920
+  expected_status: 200
+  expected_response:
+    code: 400
+  max_retries: 1
+
+- name: "内容发布 - 上传素材-视频缺失封面地址"
+  method: POST
+  url: /star-api/publish/source/upload
+  headers:
+    Content-Type: application/json
+  json:
+    projectId: $projectId
+    folderId: 1
+    mediaList:
+      - title: "无封面视频"
+        description: "缺失封面地址测试"
+        fileUrl: "https://example.com/no_cover.mp4"
+        sourceType: 1
+        duration: 15
+        width: 1080
+        height: 1920
+  expected_status: 200
+  expected_response:
+    code: 0
+  max_retries: 1
