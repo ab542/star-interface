@@ -56,6 +56,9 @@ allure serve output/allure-results
 # 生成 HTML 报告
 pytest --html=output/report.html --self-contained-html
 ```
+# 执行并生成HMYTL报告
+pytest -m monitor_center --alluredir=output/allure-results -v    
+pytest -m monitor_center --html=output/report.html --self-contained-html --alluredir=output/allure-results    
 
 ## 📁 项目结构
 
@@ -270,3 +273,5 @@ PROJECT_ID = "your-project-id"
 ## 📄 许可证
 
 MIT
+
+ 

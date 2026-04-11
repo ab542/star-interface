@@ -10,7 +10,7 @@ HEADERS = {
 }
 
 # 默认项目 ID
-DEFAULT_PROJECT_ID = "45"
+DEFAULT_PROJECT_ID = "47"
 
 # 默认登录 credentials
 # 推荐在 local_config.py 中覆盖这些配置，local_config.py 不会提交到 git
